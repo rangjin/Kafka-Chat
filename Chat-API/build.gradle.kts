@@ -28,11 +28,17 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("io.jsonwebtoken:jjwt-api:0.12.3")
+
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.4")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
     runtimeOnly("com.mysql:mysql-connector-j:8.4.0")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.springframework.security:spring-security-test")
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
