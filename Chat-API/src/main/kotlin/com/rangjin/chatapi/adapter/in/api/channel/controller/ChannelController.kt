@@ -5,7 +5,7 @@ import com.rangjin.chatapi.adapter.`in`.api.channel.dto.response.ChannelResponse
 import com.rangjin.chatapi.adapter.`in`.api.channel.mapper.toChannelResponse
 import com.rangjin.chatapi.adapter.`in`.api.channel.mapper.toCreateChannelCommand
 import com.rangjin.chatapi.adapter.`in`.auth.AuthPrincipal
-import com.rangjin.chatapi.port.`in`.channel.usecase.CreateChannelUseCase
+import com.rangjin.chatapi.domain.channel.port.`in`.usecase.CreateChannelUseCase
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

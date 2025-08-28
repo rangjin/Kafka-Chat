@@ -7,8 +7,8 @@ import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.UserWithoutPasswor
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toSignInCommand
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toSignUpCommand
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toUserWithoutPasswordResponse
-import com.rangjin.chatapi.port.`in`.user.usecase.SignInUseCase
-import com.rangjin.chatapi.port.`in`.user.usecase.SignUpUseCase
+import com.rangjin.chatapi.domain.user.port.`in`.usecase.SignInUseCase
+import com.rangjin.chatapi.domain.user.port.`in`.usecase.SignUpUseCase
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

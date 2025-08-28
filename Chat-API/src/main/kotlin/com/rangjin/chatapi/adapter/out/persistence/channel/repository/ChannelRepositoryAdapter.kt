@@ -3,7 +3,7 @@ package com.rangjin.chatapi.adapter.out.persistence.channel.repository
 import com.rangjin.chatapi.adapter.out.persistence.channel.mapper.toDomain
 import com.rangjin.chatapi.adapter.out.persistence.channel.mapper.toEntity
 import com.rangjin.chatapi.domain.channel.model.Channel
-import com.rangjin.chatapi.port.out.persistence.channel.ChannelRepository
+import com.rangjin.chatapi.domain.channel.port.out.persistence.ChannelRepository
 import org.springframework.stereotype.Component
 
 @Component

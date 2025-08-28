@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.port.out.persistence.channel
+package com.rangjin.chatapi.domain.channel.port.out.persistence
 
 import com.rangjin.chatapi.domain.channel.model.Channel
 

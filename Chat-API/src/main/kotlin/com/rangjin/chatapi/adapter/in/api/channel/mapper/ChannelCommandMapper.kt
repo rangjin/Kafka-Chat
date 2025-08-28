@@ -4,7 +4,7 @@ import com.rangjin.chatapi.adapter.`in`.api.channel.dto.request.CreateChannelReq
 import com.rangjin.chatapi.adapter.`in`.api.channel.dto.response.ChannelResponse
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toUserWithoutPasswordResponse
 import com.rangjin.chatapi.domain.channel.model.Channel
-import com.rangjin.chatapi.port.`in`.channel.command.CreateChannelCommand
+import com.rangjin.chatapi.domain.channel.port.`in`.command.CreateChannelCommand
 
 fun CreateChannelRequest.toCreateChannelCommand(userId: Long) =
     CreateChannelCommand(userId, name)

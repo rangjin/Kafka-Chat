@@ -1,7 +1,5 @@
-package com.rangjin.chatapi.common.config
+package com.rangjin.chatapi.adapter.`in`.auth
 
-import com.rangjin.chatapi.adapter.`in`.auth.AuthEntryPoint
-import com.rangjin.chatapi.adapter.`in`.auth.AuthFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

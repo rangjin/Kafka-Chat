@@ -4,8 +4,8 @@ import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.UserWithoutPasswordResponse
 import com.rangjin.chatapi.domain.user.model.User
-import com.rangjin.chatapi.port.`in`.user.command.SignInCommand
-import com.rangjin.chatapi.port.`in`.user.command.SignUpCommand
+import com.rangjin.chatapi.domain.user.port.`in`.command.SignInCommand
+import com.rangjin.chatapi.domain.user.port.`in`.command.SignUpCommand
 
 fun SignUpRequest.toSignUpCommand() =
     SignUpCommand(username.trim(), email.trim(), password)

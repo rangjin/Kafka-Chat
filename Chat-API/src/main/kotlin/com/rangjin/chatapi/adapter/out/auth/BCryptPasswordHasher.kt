@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.adapter.out.auth
 
-import com.rangjin.chatapi.port.out.auth.PasswordHasher
+import com.rangjin.chatapi.domain.user.port.out.auth.PasswordHasher
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 

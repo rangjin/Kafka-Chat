@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.common.config
+package com.rangjin.chatapi.adapter.`in`.api.config
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI

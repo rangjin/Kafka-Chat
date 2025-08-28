@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.common.error
+package com.rangjin.chatapi.adapter.`in`.api.advice
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime

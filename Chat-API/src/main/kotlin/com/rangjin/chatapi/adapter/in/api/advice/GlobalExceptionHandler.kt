@@ -1,5 +1,6 @@
-package com.rangjin.chatapi.common.error
+package com.rangjin.chatapi.adapter.`in`.api.advice
 
+import com.rangjin.chatapi.common.error.CustomException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

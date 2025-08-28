@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.port.`in`.channel.command
+package com.rangjin.chatapi.domain.channel.port.`in`.command
 
 data class CreateChannelCommand (
 

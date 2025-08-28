@@ -3,13 +3,13 @@ package com.rangjin.chatapi.domain.user.service
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
 import com.rangjin.chatapi.domain.user.model.User
-import com.rangjin.chatapi.port.`in`.user.command.SignInCommand
-import com.rangjin.chatapi.port.`in`.user.command.SignUpCommand
-import com.rangjin.chatapi.port.`in`.user.usecase.SignInUseCase
-import com.rangjin.chatapi.port.`in`.user.usecase.SignUpUseCase
-import com.rangjin.chatapi.port.out.persistence.user.UserRepository
-import com.rangjin.chatapi.port.out.auth.PasswordHasher
-import com.rangjin.chatapi.port.out.auth.TokenProvider
+import com.rangjin.chatapi.domain.user.port.`in`.command.SignInCommand
+import com.rangjin.chatapi.domain.user.port.`in`.command.SignUpCommand
+import com.rangjin.chatapi.domain.user.port.`in`.usecase.SignInUseCase
+import com.rangjin.chatapi.domain.user.port.`in`.usecase.SignUpUseCase
+import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
+import com.rangjin.chatapi.domain.user.port.out.auth.PasswordHasher
+import com.rangjin.chatapi.domain.user.port.out.auth.TokenProvider
 import org.springframework.stereotype.Service
 
 @Service

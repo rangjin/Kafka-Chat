@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.adapter.out.auth
 
-import com.rangjin.chatapi.port.out.auth.TokenProvider
+import com.rangjin.chatapi.domain.user.port.out.auth.TokenProvider
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value

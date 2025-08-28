@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.port.out.auth
+package com.rangjin.chatapi.domain.user.port.out.auth
 
 interface TokenProvider {
 

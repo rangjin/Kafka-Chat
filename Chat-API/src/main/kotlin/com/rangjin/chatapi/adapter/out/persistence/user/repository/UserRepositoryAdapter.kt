@@ -3,7 +3,7 @@ package com.rangjin.chatapi.adapter.out.persistence.user.repository
 import com.rangjin.chatapi.adapter.out.persistence.user.mapper.toDomain
 import com.rangjin.chatapi.adapter.out.persistence.user.mapper.toEntity
 import com.rangjin.chatapi.domain.user.model.User
-import com.rangjin.chatapi.port.out.persistence.user.UserRepository
+import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 

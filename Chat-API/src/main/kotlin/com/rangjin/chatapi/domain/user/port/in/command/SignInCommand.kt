@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.port.`in`.user.command
+package com.rangjin.chatapi.domain.user.port.`in`.command
 
 data class SignInCommand (
 

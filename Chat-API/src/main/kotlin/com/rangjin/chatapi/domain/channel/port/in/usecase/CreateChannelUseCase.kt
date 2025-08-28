@@ -1,7 +1,7 @@
-package com.rangjin.chatapi.port.`in`.channel.usecase
+package com.rangjin.chatapi.domain.channel.port.`in`.usecase
 
 import com.rangjin.chatapi.domain.channel.model.Channel
-import com.rangjin.chatapi.port.`in`.channel.command.CreateChannelCommand
+import com.rangjin.chatapi.domain.channel.port.`in`.command.CreateChannelCommand
 
 interface CreateChannelUseCase {
 

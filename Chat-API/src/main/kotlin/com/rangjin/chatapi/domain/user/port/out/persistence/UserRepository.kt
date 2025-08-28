@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.port.out.persistence.user
+package com.rangjin.chatapi.domain.user.port.out.persistence
 
 import com.rangjin.chatapi.domain.user.model.User
 
