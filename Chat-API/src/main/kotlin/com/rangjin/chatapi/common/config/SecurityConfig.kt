@@ -1,6 +1,7 @@
 package com.rangjin.chatapi.common.config
 
-import com.rangjin.chatapi.adapter.out.security.jwt.JwtAuthenticationFilter
+import com.rangjin.chatapi.adapter.`in`.auth.AuthEntryPoint
+import com.rangjin.chatapi.adapter.`in`.auth.AuthFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -10,7 +11,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 class SecurityConfig (
 
-    private val jwtAuthenticationFilter: JwtAuthenticationFilter
+    private val authFilter: AuthFilter,
+
+    private val authEntryPoint: AuthEntryPoint
 
 ) {
 
@@ -28,7 +31,10 @@ class SecurityConfig (
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
         }
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+        .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
+        .exceptionHandling {
+            it.authenticationEntryPoint(authEntryPoint)
+        }
         .build()!!
 
 }

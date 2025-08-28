@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.adapter.out.security.jwt
+package com.rangjin.chatapi.adapter.`in`.auth
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class JwtAuthenticationFilter (
+class AuthFilter (
 
-    private val jwtTokenProvider: JwtTokenProvider
+    private val requestAuthenticator: RequestAuthenticator
 
 ): OncePerRequestFilter() {
 
@@ -19,15 +19,9 @@ class JwtAuthenticationFilter (
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val token = request.getHeader("Authorization")
-
-        if (token != null) {
-            val split = token.split(" ")
-            if (split.size == 2 && split[0] == "Bearer" && jwtTokenProvider.verifyToken(split[1])) {
-                val auth = jwtTokenProvider.getAuthentication(split[1])
-                SecurityContextHolder.getContext().authentication = auth
-            }
-        }
+        val context = SecurityContextHolder.getContext()
+        val auth = requestAuthenticator.authenticateFromHeader(request.getHeader("Authorization"))
+        if (auth != null) context.authentication = auth
 
         filterChain.doFilter(request, response)
     }

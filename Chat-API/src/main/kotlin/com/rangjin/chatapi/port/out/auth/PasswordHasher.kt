@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.port.out.security
+package com.rangjin.chatapi.port.out.auth
 
 interface PasswordHasher {
 

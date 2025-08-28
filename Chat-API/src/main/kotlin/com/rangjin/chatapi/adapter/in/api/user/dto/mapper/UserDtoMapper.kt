@@ -2,6 +2,7 @@ package com.rangjin.chatapi.adapter.`in`.api.user.dto.mapper
 
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
+import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignInResponse
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignUpResponse
 import com.rangjin.chatapi.domain.user.model.User
 import com.rangjin.chatapi.port.`in`.user.command.SignInCommand
@@ -19,5 +20,8 @@ class UserDtoMapper {
 
     fun toSignInCommand(req: SignInRequest) =
         SignInCommand(req.email.trim(), req.password)
+
+    fun toSignInResponse(token: String) =
+        SignInResponse(token)
 
 }

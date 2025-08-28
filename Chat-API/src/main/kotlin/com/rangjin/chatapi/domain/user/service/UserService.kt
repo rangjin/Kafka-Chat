@@ -1,13 +1,15 @@
 package com.rangjin.chatapi.domain.user.service
 
-import com.rangjin.chatapi.adapter.out.security.jwt.JwtTokenProvider
+import com.rangjin.chatapi.common.error.CustomException
+import com.rangjin.chatapi.common.error.ErrorCode
 import com.rangjin.chatapi.domain.user.model.User
 import com.rangjin.chatapi.port.`in`.user.command.SignInCommand
 import com.rangjin.chatapi.port.`in`.user.command.SignUpCommand
 import com.rangjin.chatapi.port.`in`.user.usecase.SignInUseCase
 import com.rangjin.chatapi.port.`in`.user.usecase.SignUpUseCase
 import com.rangjin.chatapi.port.out.persistence.user.UserRepository
-import com.rangjin.chatapi.port.out.security.PasswordHasher
+import com.rangjin.chatapi.port.out.auth.PasswordHasher
+import com.rangjin.chatapi.port.out.auth.TokenProvider
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,7 +19,7 @@ class UserService (
 
     private val passwordHasher: PasswordHasher,
 
-    private val jwtTokenProvider: JwtTokenProvider
+    private val tokenProvider: TokenProvider
 
 ): SignUpUseCase, SignInUseCase {
 
@@ -32,11 +34,12 @@ class UserService (
     }
 
     override fun signIn(signInCommand: SignInCommand): String {
-        val user = userRepository.findByEmail(signInCommand.email) ?: throw Exception()
+        val user = userRepository.findByEmail(signInCommand.email)
+            ?: throw CustomException(ErrorCode.USER_NOT_FOUND)
 
         if (passwordHasher.matches(signInCommand.rawPassword, user.passwordHash)) {
-            return jwtTokenProvider.generateToken(user.id!!, user.username)
-        } else throw Exception()
+            return tokenProvider.generateToken(user.id!!, user.username)
+        } else throw CustomException(ErrorCode.WRONG_PASSWORD)
     }
 
 }
