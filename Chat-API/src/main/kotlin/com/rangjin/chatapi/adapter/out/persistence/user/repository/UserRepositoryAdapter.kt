@@ -23,7 +23,12 @@ class UserRepositoryAdapter (
     }
 
     private fun UserJpaEntity.toDomain() = User(
-        id = id, username = username, email = email, passwordHash = password
+        id = id,
+        username = username,
+        email = email,
+        passwordHash = password,
+        createdAt = createdAt,
+        updatedAt = updatedAt
     )
 
     private fun User.toEntity() = UserJpaEntity(

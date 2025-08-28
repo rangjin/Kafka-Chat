@@ -1,5 +1,7 @@
 package com.rangjin.chatapi.domain.user.model
 
+import java.time.LocalDateTime
+
 data class User (
 
     val id: Long? = null,
@@ -10,4 +12,9 @@ data class User (
 
     val passwordHash: String,
 
-)
+    val createdAt: LocalDateTime? = null,
+
+    val updatedAt: LocalDateTime? = null,
+
+
+    )
