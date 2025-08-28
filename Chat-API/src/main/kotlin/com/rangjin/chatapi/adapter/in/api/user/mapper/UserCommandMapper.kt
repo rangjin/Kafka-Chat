@@ -2,26 +2,16 @@ package com.rangjin.chatapi.adapter.`in`.api.user.mapper
 
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
-import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignInResponse
-import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignUpResponse
+import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.UserWithoutPasswordResponse
 import com.rangjin.chatapi.domain.user.model.User
 import com.rangjin.chatapi.port.`in`.user.command.SignInCommand
 import com.rangjin.chatapi.port.`in`.user.command.SignUpCommand
-import org.springframework.stereotype.Component
 
-@Component
-class UserCommandMapper {
+fun SignUpRequest.toSignUpCommand() =
+    SignUpCommand(username.trim(), email.trim(), password)
 
-    fun toSignUpCommand(req: SignUpRequest) =
-        SignUpCommand(req.username.trim(), req.email.trim(), req.password)
+fun User.toUserWithoutPasswordResponse() =
+    UserWithoutPasswordResponse(id, username, email, createdAt!!, updatedAt!!)
 
-    fun toSignUpResponse(user: User) =
-        SignUpResponse(user.id, user.username, user.email)
-
-    fun toSignInCommand(req: SignInRequest) =
-        SignInCommand(req.email.trim(), req.password)
-
-    fun toSignInResponse(token: String) =
-        SignInResponse(token)
-
-}
+fun SignInRequest.toSignInCommand() =
+    SignInCommand(email.trim(), password)

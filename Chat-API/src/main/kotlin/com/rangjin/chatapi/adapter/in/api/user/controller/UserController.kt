@@ -1,10 +1,12 @@
 package com.rangjin.chatapi.adapter.`in`.api.user.controller
 
-import com.rangjin.chatapi.adapter.`in`.api.user.mapper.UserCommandMapper
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
-import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignInResponse
-import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignUpResponse
+import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.TokenResponse
+import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.UserWithoutPasswordResponse
+import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toSignInCommand
+import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toSignUpCommand
+import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toUserWithoutPasswordResponse
 import com.rangjin.chatapi.port.`in`.user.usecase.SignInUseCase
 import com.rangjin.chatapi.port.`in`.user.usecase.SignUpUseCase
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/user")
 class UserController (
 
-    private val userCommandMapper: UserCommandMapper,
-
     private val signUpUseCase: SignUpUseCase,
 
     private val signInUseCase: SignInUseCase
@@ -27,19 +27,19 @@ class UserController (
     @PostMapping("/signUp")
     fun postSignUp(
         @RequestBody request: SignUpRequest
-    ): SignUpResponse {
-        val user = signUpUseCase.signUp(userCommandMapper.toSignUpCommand(request))
+    ): UserWithoutPasswordResponse {
+        val user = signUpUseCase.signUp(request.toSignUpCommand())
 
-        return userCommandMapper.toSignUpResponse(user)
+        return user.toUserWithoutPasswordResponse()
     }
 
     @PostMapping("/signIn")
     fun postSignIn(
         @RequestBody request: SignInRequest
-    ): SignInResponse {
-        val token = signInUseCase.signIn(userCommandMapper.toSignInCommand(request))
+    ): TokenResponse {
+        val token = signInUseCase.signIn(request.toSignInCommand())
 
-        return userCommandMapper.toSignInResponse(token)
+        return TokenResponse(token)
     }
 
 }

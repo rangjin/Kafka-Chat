@@ -27,7 +27,7 @@ class ChannelJpaEntity (
         joinColumns = [JoinColumn(name = "channel_id")],
         inverseJoinColumns = [JoinColumn(name = "user_id")]
     )
-    val members: List<UserJpaEntity> = ArrayList()
+    val members: List<UserJpaEntity> = emptyList()
 
 ): BaseTimeEntity() {
 }
