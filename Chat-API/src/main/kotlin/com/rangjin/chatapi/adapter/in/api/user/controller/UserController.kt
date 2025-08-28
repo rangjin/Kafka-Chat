@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.adapter.`in`.api.user.controller
 
-import com.rangjin.chatapi.adapter.`in`.api.user.dto.mapper.UserDtoMapper
+import com.rangjin.chatapi.adapter.`in`.api.user.mapper.UserCommandMapper
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.SignInResponse
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/user")
 class UserController (
 
-    private val userDtoMapper: UserDtoMapper,
+    private val userCommandMapper: UserCommandMapper,
 
     private val signUpUseCase: SignUpUseCase,
 
@@ -28,18 +28,18 @@ class UserController (
     fun postSignUp(
         @RequestBody request: SignUpRequest
     ): SignUpResponse {
-        val user = signUpUseCase.signUp(userDtoMapper.toSignUpCommand(request))
+        val user = signUpUseCase.signUp(userCommandMapper.toSignUpCommand(request))
 
-        return userDtoMapper.toSignUpResponse(user)
+        return userCommandMapper.toSignUpResponse(user)
     }
 
     @PostMapping("/signIn")
     fun postSignIn(
         @RequestBody request: SignInRequest
     ): SignInResponse {
-        val token = signInUseCase.signIn(userDtoMapper.toSignInCommand(request))
+        val token = signInUseCase.signIn(userCommandMapper.toSignInCommand(request))
 
-        return userDtoMapper.toSignInResponse(token)
+        return userCommandMapper.toSignInResponse(token)
     }
 
 }

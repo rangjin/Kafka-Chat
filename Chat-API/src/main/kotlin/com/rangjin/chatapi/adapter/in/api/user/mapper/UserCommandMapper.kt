@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.adapter.`in`.api.user.dto.mapper
+package com.rangjin.chatapi.adapter.`in`.api.user.mapper
 
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
@@ -10,7 +10,7 @@ import com.rangjin.chatapi.port.`in`.user.command.SignUpCommand
 import org.springframework.stereotype.Component
 
 @Component
-class UserDtoMapper {
+class UserCommandMapper {
 
     fun toSignUpCommand(req: SignUpRequest) =
         SignUpCommand(req.username.trim(), req.email.trim(), req.password)
