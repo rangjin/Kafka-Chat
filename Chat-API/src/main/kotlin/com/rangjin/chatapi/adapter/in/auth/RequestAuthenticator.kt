@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 
 @Component
-class RequestAuthenticator (
+class RequestAuthenticator(
 
     @Value("\${security.jwt.secret}")
     private val secret: String

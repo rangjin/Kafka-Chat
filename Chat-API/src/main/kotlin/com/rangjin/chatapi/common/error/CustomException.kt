@@ -1,8 +1,8 @@
 package com.rangjin.chatapi.common.error
 
-data class CustomException (
+data class CustomException(
 
     val errorCode: ErrorCode
 
-): Exception(errorCode.message) {
+) : Exception(errorCode.message) {
 }

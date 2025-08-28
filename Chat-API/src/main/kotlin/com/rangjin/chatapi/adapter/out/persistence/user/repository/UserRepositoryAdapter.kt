@@ -1,6 +1,5 @@
 package com.rangjin.chatapi.adapter.out.persistence.user.repository
 
-import com.rangjin.chatapi.adapter.out.persistence.user.entity.UserJpaEntity
 import com.rangjin.chatapi.adapter.out.persistence.user.mapper.toDomain
 import com.rangjin.chatapi.adapter.out.persistence.user.mapper.toEntity
 import com.rangjin.chatapi.domain.user.model.User
@@ -9,11 +8,11 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
-class UserRepositoryAdapter (
+class UserRepositoryAdapter(
 
     private val userJpaRepository: UserJpaRepository
 
-): UserRepository {
+) : UserRepository {
 
     override fun save(user: User): User {
         val entity = user.toEntity()
@@ -28,7 +27,6 @@ class UserRepositoryAdapter (
     override fun findByEmail(email: String): User? {
         return userJpaRepository.findByEmail(email)?.toDomain()
     }
-
 
 
 }

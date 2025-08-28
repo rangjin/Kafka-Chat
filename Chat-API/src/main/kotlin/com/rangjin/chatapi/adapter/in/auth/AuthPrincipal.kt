@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.adapter.`in`.auth
 
-data class AuthPrincipal (
+data class AuthPrincipal(
 
     val userId: Long,
 

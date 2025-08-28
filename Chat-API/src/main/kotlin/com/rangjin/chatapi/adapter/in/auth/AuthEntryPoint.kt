@@ -15,7 +15,7 @@ class AuthEntryPoint(
 
     private val objectMapper: ObjectMapper
 
-): AuthenticationEntryPoint {
+) : AuthenticationEntryPoint {
 
     override fun commence(
         request: HttpServletRequest,
@@ -27,13 +27,15 @@ class AuthEntryPoint(
         response.status = error.status.value()
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.characterEncoding = "utf-8"
-        response.writer.write(objectMapper.writeValueAsString(
-            ExceptionResponse(
-                status = error.status,
-                requestUri = request.requestURI,
-                data = error.message,
+        response.writer.write(
+            objectMapper.writeValueAsString(
+                ExceptionResponse(
+                    status = error.status,
+                    requestUri = request.requestURI,
+                    data = error.message,
+                )
             )
-        ))
+        )
     }
 
 }

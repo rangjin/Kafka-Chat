@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class AuthFilter (
+class AuthFilter(
 
     private val requestAuthenticator: RequestAuthenticator
 
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,

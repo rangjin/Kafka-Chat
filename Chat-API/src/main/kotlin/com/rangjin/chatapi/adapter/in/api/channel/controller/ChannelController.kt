@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/channel")
-class ChannelController (
+class ChannelController(
 
     private val createChannelUseCase: CreateChannelUseCase
 

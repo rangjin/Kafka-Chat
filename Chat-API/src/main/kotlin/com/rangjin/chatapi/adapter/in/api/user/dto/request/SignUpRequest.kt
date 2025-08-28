@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.adapter.`in`.api.user.dto.request
 
-data class SignUpRequest (
+data class SignUpRequest(
 
     val username: String,
 
@@ -8,5 +8,4 @@ data class SignUpRequest (
 
     val password: String
 
-) {
-}
+)
