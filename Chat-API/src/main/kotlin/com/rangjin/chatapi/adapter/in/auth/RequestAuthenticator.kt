@@ -19,7 +19,7 @@ class RequestAuthenticator (
 
     private val parser = Jwts.parser().verifyWith(key).build()
 
-    fun authenticateFromHeader(header: String): Authentication? {
+    fun authenticateFromHeader(header: String?): Authentication? {
         val token = extractBearer(header) ?: return null
         val principal = parseAndValidate(token) ?: return null
 
@@ -39,7 +39,7 @@ class RequestAuthenticator (
 
         // todo: id와 username 확인 절차 필요?
         AuthPrincipal(
-            userId = claims.id.toLong(),
+            userId = claims.subject.toLong(),
             username = claims["username"] as String?
         )
     } catch (_: Exception) {
