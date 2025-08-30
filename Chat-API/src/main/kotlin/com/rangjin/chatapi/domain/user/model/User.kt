@@ -2,7 +2,7 @@ package com.rangjin.chatapi.domain.user.model
 
 import java.time.LocalDateTime
 
-data class User (
+data class User(
 
     val id: Long? = null,
 

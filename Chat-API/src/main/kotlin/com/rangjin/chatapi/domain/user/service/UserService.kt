@@ -7,13 +7,13 @@ import com.rangjin.chatapi.domain.user.port.`in`.command.SignInCommand
 import com.rangjin.chatapi.domain.user.port.`in`.command.SignUpCommand
 import com.rangjin.chatapi.domain.user.port.`in`.usecase.SignInUseCase
 import com.rangjin.chatapi.domain.user.port.`in`.usecase.SignUpUseCase
-import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import com.rangjin.chatapi.domain.user.port.out.auth.PasswordHasher
 import com.rangjin.chatapi.domain.user.port.out.auth.TokenProvider
+import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
-class UserService (
+class UserService(
 
     private val userRepository: UserRepository,
 
@@ -21,7 +21,7 @@ class UserService (
 
     private val tokenProvider: TokenProvider
 
-): SignUpUseCase, SignInUseCase {
+) : SignUpUseCase, SignInUseCase {
 
     override fun signUp(command: SignUpCommand): User {
         val user = User(

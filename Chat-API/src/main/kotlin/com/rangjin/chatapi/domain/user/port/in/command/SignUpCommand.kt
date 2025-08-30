@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.domain.user.port.`in`.command
 
-data class SignUpCommand (
+data class SignUpCommand(
 
     val username: String,
 

@@ -1,7 +1,6 @@
 package com.rangjin.chatapi.adapter.out.persistence.outbox.entity
 
 import com.rangjin.chatapi.adapter.out.persistence.common.BaseTimeEntity
-import com.rangjin.chatapi.adapter.out.persistence.outbox.entity.MessageOutboxStatus
 import jakarta.persistence.*
 import java.time.LocalDateTime
 

@@ -2,7 +2,7 @@ package com.rangjin.chatapi.common.error
 
 import org.springframework.http.HttpStatus
 
-enum class ErrorCode (
+enum class ErrorCode(
 
     val status: HttpStatus,
 

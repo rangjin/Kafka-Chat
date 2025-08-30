@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.domain.channel.port.`in`.command
 
-data class CreateChannelCommand (
+data class CreateChannelCommand(
 
     val userId: Long,
 

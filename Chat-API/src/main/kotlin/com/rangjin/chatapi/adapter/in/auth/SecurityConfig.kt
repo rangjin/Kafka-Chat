@@ -7,7 +7,7 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
-class SecurityConfig (
+class SecurityConfig(
 
     private val authFilter: AuthFilter,
 
@@ -24,8 +24,10 @@ class SecurityConfig (
             it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }
         .authorizeHttpRequests {
-            it.requestMatchers("/swagger-ui/**", "/v3/api-docs/**",
-                "/api/user/signUp", "/api/user/signIn").permitAll()
+            it.requestMatchers(
+                "/swagger-ui/**", "/v3/api-docs/**",
+                "/api/user/signUp", "/api/user/signIn"
+            ).permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
         }

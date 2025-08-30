@@ -1,7 +1,6 @@
 package com.rangjin.chatapi.adapter.out.persistence.outbox.producer
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.rangjin.chatapi.adapter.out.events.MessageEvent
 import com.rangjin.chatapi.adapter.out.events.toMessageEvent
 import com.rangjin.chatapi.adapter.out.persistence.outbox.entity.MessageOutboxJpaEntity
 import com.rangjin.chatapi.adapter.out.persistence.outbox.repository.MessageOutboxJpaRepository
@@ -16,7 +15,7 @@ class MessageOutboxProducer(
 
     private val messageOutboxJpaRepository: MessageOutboxJpaRepository
 
-): MessageProducer {
+) : MessageProducer {
 
     override fun send(message: Message): Message {
         val json = objectMapper.writeValueAsString(message.toMessageEvent())

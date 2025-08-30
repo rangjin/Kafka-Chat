@@ -10,13 +10,13 @@ import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ChannelService (
+class ChannelService(
 
     private val channelRepository: ChannelRepository,
 
     private val userRepository: UserRepository
 
-): CreateChannelUseCase {
+) : CreateChannelUseCase {
 
     override fun createChannel(createChannelCommand: CreateChannelCommand): Channel {
         val user = userRepository.findById(createChannelCommand.userId)
