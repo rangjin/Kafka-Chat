@@ -13,13 +13,13 @@ class MessageService(
 
 ) : SendMessageUseCase {
 
-    override fun sendMessage(sendMessageCommand: SendMessageCommand): Message =
+    override fun sendMessage(command: SendMessageCommand): Message =
         messageProducer.send(
             Message(
-                channelId = sendMessageCommand.channelId,
-                senderId = sendMessageCommand.senderId,
-                content = sendMessageCommand.content,
-                sendAt = sendMessageCommand.sendAt
+                channelId = command.channelId,
+                senderId = command.senderId,
+                content = command.content,
+                sendAt = command.sendAt
             )
         )
 

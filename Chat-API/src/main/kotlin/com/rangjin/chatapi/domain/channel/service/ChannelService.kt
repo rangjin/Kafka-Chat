@@ -18,11 +18,11 @@ class ChannelService(
 
 ) : CreateChannelUseCase {
 
-    override fun createChannel(createChannelCommand: CreateChannelCommand): Channel {
-        val user = userRepository.findById(createChannelCommand.userId)
+    override fun createChannel(command: CreateChannelCommand): Channel {
+        val user = userRepository.findById(command.userId)
             ?: throw CustomException(ErrorCode.USER_NOT_FOUND)
         val channel = Channel(
-            name = createChannelCommand.name,
+            name = command.name,
             members = listOf(user)
         )
 

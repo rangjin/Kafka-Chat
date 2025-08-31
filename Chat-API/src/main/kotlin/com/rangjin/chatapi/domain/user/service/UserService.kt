@@ -33,11 +33,11 @@ class UserService(
         return userRepository.save(user)
     }
 
-    override fun signIn(signInCommand: SignInCommand): String {
-        val user = userRepository.findByEmail(signInCommand.email)
+    override fun signIn(command: SignInCommand): String {
+        val user = userRepository.findByEmail(command.email)
             ?: throw CustomException(ErrorCode.USER_NOT_FOUND)
 
-        if (passwordHasher.matches(signInCommand.rawPassword, user.passwordHash)) {
+        if (passwordHasher.matches(command.rawPassword, user.passwordHash)) {
             return tokenProvider.generateToken(user.id!!, user.username)
         } else throw CustomException(ErrorCode.WRONG_PASSWORD)
     }

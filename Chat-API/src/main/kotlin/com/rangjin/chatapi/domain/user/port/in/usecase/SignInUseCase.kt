@@ -4,6 +4,6 @@ import com.rangjin.chatapi.domain.user.port.`in`.command.SignInCommand
 
 interface SignInUseCase {
 
-    fun signIn(signInCommand: SignInCommand): String
+    fun signIn(command: SignInCommand): String
 
 }

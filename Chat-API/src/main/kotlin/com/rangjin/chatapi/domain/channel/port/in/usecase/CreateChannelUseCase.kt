@@ -5,6 +5,6 @@ import com.rangjin.chatapi.domain.channel.port.`in`.command.CreateChannelCommand
 
 interface CreateChannelUseCase {
 
-    fun createChannel(createChannelCommand: CreateChannelCommand): Channel
+    fun createChannel(command: CreateChannelCommand): Channel
 
 }
