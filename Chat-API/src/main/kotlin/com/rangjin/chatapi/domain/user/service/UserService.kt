@@ -11,6 +11,7 @@ import com.rangjin.chatapi.domain.user.port.out.auth.PasswordHasher
 import com.rangjin.chatapi.domain.user.port.out.auth.TokenProvider
 import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(
@@ -23,6 +24,7 @@ class UserService(
 
 ) : SignUpUseCase, SignInUseCase {
 
+    @Transactional
     override fun signUp(command: SignUpCommand): User {
         val user = User(
             username = command.username,
@@ -33,6 +35,7 @@ class UserService(
         return userRepository.save(user)
     }
 
+    @Transactional(readOnly = true)
     override fun signIn(command: SignInCommand): String {
         val user = userRepository.findByEmail(command.email)
             ?: throw CustomException(ErrorCode.USER_NOT_FOUND)

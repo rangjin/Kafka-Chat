@@ -5,6 +5,7 @@ import com.rangjin.chatapi.domain.message.port.`in`.command.SendMessageCommand
 import com.rangjin.chatapi.domain.message.port.`in`.usecase.SendMessageUseCase
 import com.rangjin.chatapi.domain.message.port.out.MessageProducer
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MessageService(
@@ -13,6 +14,7 @@ class MessageService(
 
 ) : SendMessageUseCase {
 
+    @Transactional
     override fun sendMessage(command: SendMessageCommand): Message =
         messageProducer.send(
             Message(

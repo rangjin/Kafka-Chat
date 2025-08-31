@@ -8,6 +8,7 @@ import com.rangjin.chatapi.domain.channel.port.`in`.usecase.CreateChannelUseCase
 import com.rangjin.chatapi.domain.channel.port.out.persistence.ChannelRepository
 import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ChannelService(
@@ -18,6 +19,7 @@ class ChannelService(
 
 ) : CreateChannelUseCase {
 
+    @Transactional
     override fun createChannel(command: CreateChannelCommand): Channel {
         val user = userRepository.findById(command.userId)
             ?: throw CustomException(ErrorCode.USER_NOT_FOUND)
