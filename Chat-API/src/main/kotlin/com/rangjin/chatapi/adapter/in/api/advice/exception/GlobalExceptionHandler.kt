@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.adapter.`in`.api.advice
+package com.rangjin.chatapi.adapter.`in`.api.advice.exception
 
 import com.rangjin.chatapi.common.error.CustomException
 import jakarta.servlet.http.HttpServletRequest
@@ -26,18 +26,18 @@ class GlobalExceptionHandler {
     }
 
     // 보안용
-    @ExceptionHandler(Exception::class)
-    private fun handlerException(
-        e: Exception,
-        request: HttpServletRequest,
-    ): ResponseEntity<ExceptionResponse<String>> {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-            ExceptionResponse(
-                status = HttpStatus.INTERNAL_SERVER_ERROR,
-                requestUri = request.requestURI,
-                data = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
-            )
-        )
-    }
+//    @ExceptionHandler(Exception::class)
+//    private fun handlerException(
+//        e: Exception,
+//        request: HttpServletRequest,
+//    ): ResponseEntity<ExceptionResponse<String>> {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+//            ExceptionResponse(
+//                status = HttpStatus.INTERNAL_SERVER_ERROR,
+//                requestUri = request.requestURI,
+//                data = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
+//            )
+//        )
+//    }
 
 }

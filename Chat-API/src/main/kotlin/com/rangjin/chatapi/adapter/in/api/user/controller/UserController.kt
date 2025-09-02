@@ -3,7 +3,7 @@ package com.rangjin.chatapi.adapter.`in`.api.user.controller
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.request.SignUpRequest
 import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.TokenResponse
-import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.UserWithoutPasswordResponse
+import com.rangjin.chatapi.adapter.`in`.api.user.dto.response.UserSummaryResponse
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toSignInCommand
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toSignUpCommand
 import com.rangjin.chatapi.adapter.`in`.api.user.mapper.toUserWithoutPasswordResponse
@@ -27,7 +27,7 @@ class UserController(
     @PostMapping("/signUp")
     fun postSignUp(
         @RequestBody request: SignUpRequest
-    ): UserWithoutPasswordResponse {
+    ): UserSummaryResponse {
         val user = signUpUseCase.signUp(request.toSignUpCommand())
 
         return user.toUserWithoutPasswordResponse()

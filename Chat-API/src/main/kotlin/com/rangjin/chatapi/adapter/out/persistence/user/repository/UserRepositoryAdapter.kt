@@ -20,13 +20,13 @@ class UserRepositoryAdapter(
         return saved.toDomain()
     }
 
-    override fun findById(id: Long): User? {
-        return userJpaRepository.findByIdOrNull(id)?.toDomain()
-    }
+    override fun existsById(id: Long): Boolean =
+        userJpaRepository.existsById(id)
 
-    override fun findByEmail(email: String): User? {
-        return userJpaRepository.findByEmail(email)?.toDomain()
-    }
+    override fun findById(id: Long): User? =
+        userJpaRepository.findByIdOrNull(id)?.toDomain()
 
+    override fun findByEmail(email: String): User? =
+        userJpaRepository.findByEmail(email)?.toDomain()
 
 }

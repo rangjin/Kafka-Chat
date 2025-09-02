@@ -5,6 +5,7 @@ import com.rangjin.chatapi.common.error.ErrorCode
 import com.rangjin.chatapi.domain.channel.model.Channel
 import com.rangjin.chatapi.domain.channel.port.`in`.command.CreateChannelCommand
 import com.rangjin.chatapi.domain.channel.port.`in`.usecase.CreateChannelUseCase
+import com.rangjin.chatapi.domain.channel.port.`in`.usecase.ReadMyChannelsUseCase
 import com.rangjin.chatapi.domain.channel.port.out.persistence.ChannelRepository
 import com.rangjin.chatapi.domain.user.port.out.persistence.UserRepository
 import org.springframework.stereotype.Service
@@ -17,7 +18,7 @@ class ChannelService(
 
     private val userRepository: UserRepository
 
-) : CreateChannelUseCase {
+) : CreateChannelUseCase, ReadMyChannelsUseCase {
 
     @Transactional
     override fun createChannel(command: CreateChannelCommand): Channel {
@@ -29,6 +30,13 @@ class ChannelService(
         )
 
         return channelRepository.save(channel)
+    }
+
+    @Transactional(readOnly = true)
+    override fun getMyChannels(userId: Long): List<Channel> {
+        if (!userRepository.existsById(userId)) throw CustomException(ErrorCode.USER_NOT_FOUND)
+
+        return channelRepository.findByUserId(userId)
     }
 
 }

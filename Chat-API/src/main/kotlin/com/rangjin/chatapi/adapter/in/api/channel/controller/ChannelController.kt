@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.adapter.`in`.api.channel.controller
 
 import com.rangjin.chatapi.adapter.`in`.api.channel.dto.request.CreateChannelRequest
-import com.rangjin.chatapi.adapter.`in`.api.channel.dto.response.ChannelResponse
+import com.rangjin.chatapi.adapter.`in`.api.channel.dto.response.ChannelDetailResponse
 import com.rangjin.chatapi.adapter.`in`.api.channel.mapper.toChannelResponse
 import com.rangjin.chatapi.adapter.`in`.api.channel.mapper.toCreateChannelCommand
 import com.rangjin.chatapi.adapter.`in`.auth.AuthPrincipal
@@ -24,7 +24,7 @@ class ChannelController(
     fun postCreate(
         @AuthenticationPrincipal principal: AuthPrincipal,
         @RequestBody createChannelRequest: CreateChannelRequest
-    ): ChannelResponse {
+    ): ChannelDetailResponse {
         val channel = createChannelUseCase.createChannel(
             createChannelRequest.toCreateChannelCommand(principal.userId)
         )

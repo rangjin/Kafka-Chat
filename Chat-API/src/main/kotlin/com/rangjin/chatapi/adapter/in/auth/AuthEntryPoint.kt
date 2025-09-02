@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.adapter.`in`.auth
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.rangjin.chatapi.adapter.`in`.api.advice.ExceptionResponse
+import com.rangjin.chatapi.adapter.`in`.api.advice.exception.ExceptionResponse
 import com.rangjin.chatapi.common.error.ErrorCode
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
