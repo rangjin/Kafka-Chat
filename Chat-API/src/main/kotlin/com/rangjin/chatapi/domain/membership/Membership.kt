@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.domain.membership
 
 import com.rangjin.chatapi.domain.user.User
-import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipRole
+import com.rangjin.chatapi.domain.membership.MembershipRole
 import java.time.LocalDateTime
 
 data class Membership(

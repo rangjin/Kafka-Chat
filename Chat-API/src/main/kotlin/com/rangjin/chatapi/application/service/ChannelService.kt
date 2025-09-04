@@ -4,26 +4,31 @@ import com.rangjin.chatapi.application.port.`in`.channel.CreateChannelUseCase
 import com.rangjin.chatapi.application.port.`in`.channel.InvitationUseCase
 import com.rangjin.chatapi.application.port.`in`.channel.ReadMyChannelsUseCase
 import com.rangjin.chatapi.application.port.out.channel.ChannelRepository
+import com.rangjin.chatapi.application.port.out.message.MessagePublisher
 import com.rangjin.chatapi.application.port.out.user.UserRepository
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
 import com.rangjin.chatapi.domain.channel.Channel
+import com.rangjin.chatapi.domain.event.ChannelActivity
+import com.rangjin.chatapi.domain.membership.MembershipRole
 import com.rangjin.chatapi.domain.user.User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 class ChannelService(
 
     private val channelRepository: ChannelRepository,
 
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+
+    private val messagePublisher: MessagePublisher
 
 ) : CreateChannelUseCase, ReadMyChannelsUseCase, InvitationUseCase {
 
     @Transactional
     override fun createChannel(userId: Long, name: String): Channel {
-//        if (!userRepository.existsById(userId)) throw CustomException(ErrorCode.USER_NOT_FOUND)
         val user=  userRepository.findById(userId)
             ?: throw CustomException(ErrorCode.USER_NOT_FOUND)
 
@@ -56,6 +61,17 @@ class ChannelService(
         }
 
         channelRepository.save(channel)
+
+        invitedUser.forEach {
+            messagePublisher.publish(
+                ChannelActivity.Joined(
+                    userId = it.id!!,
+                    channelId = channelId,
+                    role = MembershipRole.MEMBER,
+                    occurredAt = LocalDateTime.now()
+                )
+            )
+        }
 
         return invitedUser
     }

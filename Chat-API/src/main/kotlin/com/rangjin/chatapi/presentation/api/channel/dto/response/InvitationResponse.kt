@@ -4,7 +4,7 @@ import com.rangjin.chatapi.domain.user.User
 
 data class InvitationResponse(
 
-    val result: Boolean = true,
+    val success: Boolean = true,
 
     val invitedUserIds: List<User>
 

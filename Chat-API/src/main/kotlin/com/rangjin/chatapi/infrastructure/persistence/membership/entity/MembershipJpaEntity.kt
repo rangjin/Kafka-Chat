@@ -1,5 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.membership.entity
 
+import com.rangjin.chatapi.domain.membership.MembershipRole
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity

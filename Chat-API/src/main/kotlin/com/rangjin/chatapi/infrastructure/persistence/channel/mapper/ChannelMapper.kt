@@ -4,7 +4,7 @@ import com.rangjin.chatapi.domain.channel.Channel
 import com.rangjin.chatapi.domain.membership.Membership
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipJpaEntity
-import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipRole
+import com.rangjin.chatapi.domain.membership.MembershipRole
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.user.mapper.UserMapper
 
