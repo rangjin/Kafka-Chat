@@ -19,12 +19,14 @@ class OutboxJpaEntity(
     val aggregateType: AggregateType,
 
     @Column(name = "aggregate_id", nullable = false, length = 64)
-    val aggregateId: Long,
+    val aggregateId: String,
 
     @Lob
     @Column(name = "payload", nullable = false, columnDefinition = "JSON")
     @JsonRawValue
     val payload: String,
+
+    val type: String,
 
     val timestamp: LocalDateTime
 

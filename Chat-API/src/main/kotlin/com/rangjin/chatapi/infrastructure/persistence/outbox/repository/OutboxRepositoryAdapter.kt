@@ -21,8 +21,9 @@ class OutboxRepositoryAdapter(
         outboxJpaRepository.save(
             OutboxJpaEntity(
                 aggregateType = AggregateType.MESSAGE,
-                aggregateId = message.channelId,
+                aggregateId = message.channelId.toString(),
                 payload = objectMapper.writeValueAsString(message),
+                type = "MessageSent",
                 timestamp = message.sentAt
             )
         )
@@ -34,8 +35,9 @@ class OutboxRepositoryAdapter(
         outboxJpaRepository.save(
             OutboxJpaEntity(
                 aggregateType = AggregateType.CHANNEL_ACTIVITY,
-                aggregateId = activity.channelId,
+                aggregateId = activity.channelId.toString(),
                 payload = objectMapper.writeValueAsString(activity),
+                type = activity.type.value,
                 timestamp = activity.occurredAt
             )
         )
