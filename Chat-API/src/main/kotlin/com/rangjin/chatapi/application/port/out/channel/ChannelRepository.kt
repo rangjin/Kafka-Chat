@@ -6,6 +6,8 @@ interface ChannelRepository {
 
     fun save(channel: Channel): Channel
 
+    fun findById(channelId: Long): Channel?
+
     fun findByUserId(userId: Long): List<Channel>
 
 }

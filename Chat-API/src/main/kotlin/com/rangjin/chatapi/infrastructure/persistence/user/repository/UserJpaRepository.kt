@@ -7,4 +7,6 @@ interface UserJpaRepository : JpaRepository<UserJpaEntity, Long> {
 
     fun findByEmail(email: String): UserJpaEntity?
 
+    fun findByEmailIn(emails: List<String>): List<UserJpaEntity>
+
 }

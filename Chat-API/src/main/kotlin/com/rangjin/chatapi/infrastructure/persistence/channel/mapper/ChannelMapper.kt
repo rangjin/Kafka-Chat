@@ -6,6 +6,7 @@ import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaE
 import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipRole
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
+import com.rangjin.chatapi.infrastructure.persistence.user.mapper.UserMapper
 
 object ChannelMapper {
 
@@ -20,7 +21,7 @@ object ChannelMapper {
             val memJpa = MembershipJpaEntity(
                 id = m.id,
                 channel = channelJpa,
-                user = ownerRequiredUser(m.userId),
+                user = ownerRequiredUser(m.user.id!!),
                 role = MembershipRole.valueOf(m.role.name),
                 joinedAt = m.joinedAt
             )
@@ -37,7 +38,7 @@ object ChannelMapper {
                 Membership(
                     id = m.id,
                     channelId = jpa.id,
-                    userId = m.user.id!!,
+                    user = UserMapper.toDomain(m.user),
                     role = m.role,
                     joinedAt = m.joinedAt,
                     createdAt = m.createdAt,

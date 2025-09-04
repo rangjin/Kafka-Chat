@@ -12,4 +12,6 @@ interface UserRepository {
 
     fun findByEmail(email: String): User?
 
+    fun findByEmailIn(emails: List<String>): List<User>
+
 }

@@ -2,6 +2,7 @@ package com.rangjin.chatapi.presentation.api.channel.dto.response
 
 import com.fasterxml.jackson.annotation.JsonFilter
 import com.rangjin.chatapi.domain.channel.Channel
+import com.rangjin.chatapi.domain.user.User
 import com.rangjin.chatapi.presentation.api.user.dto.response.UserSummaryResponse
 import java.time.LocalDateTime
 
@@ -12,7 +13,7 @@ data class ChannelDetailResponse(
 
     val name: String,
 
-    val members: List<Long> = emptyList(),
+    val members: List<User> = emptyList(),
 
     val createdAt: LocalDateTime? = null,
 
@@ -25,7 +26,7 @@ data class ChannelDetailResponse(
             ChannelDetailResponse(
                 id = channel.id,
                 name = channel.name,
-                members = channel.members.map { it.userId },
+                members = channel.members.map { it.user },
                 createdAt = channel.createdAt,
                 updatedAt = channel.updatedAt
             )

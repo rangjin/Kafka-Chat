@@ -32,4 +32,8 @@ class UserRepositoryAdapter(
         return UserMapper.toDomain(entity)
     }
 
+    override fun findByEmailIn(emails: List<String>): List<User> =
+        userJpaRepository.findByEmailIn(emails)
+            .map { UserMapper.toDomain(it) }
+
 }

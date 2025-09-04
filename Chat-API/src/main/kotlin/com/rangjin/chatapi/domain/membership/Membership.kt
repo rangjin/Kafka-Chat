@@ -1,5 +1,6 @@
 package com.rangjin.chatapi.domain.membership
 
+import com.rangjin.chatapi.domain.user.User
 import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipRole
 import java.time.LocalDateTime
 
@@ -9,7 +10,7 @@ data class Membership(
 
     val channelId: Long? = null,
 
-    val userId: Long,
+    val user: User,
 
     val role: MembershipRole,
 

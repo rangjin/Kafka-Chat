@@ -5,6 +5,7 @@ import com.rangjin.chatapi.application.port.out.channel.ChannelRepository
 import com.rangjin.chatapi.infrastructure.persistence.channel.mapper.ChannelMapper
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
 import jakarta.persistence.EntityManager
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
@@ -23,6 +24,11 @@ class ChannelRepositoryAdapter(
         val entity = ChannelMapper.toJpa(channel, userRef)
 
         return ChannelMapper.toDomain(channelJpaRepository.save(entity))
+    }
+
+    override fun findById(channelId: Long): Channel? {
+        val entity = channelJpaRepository.findByIdOrNull(channelId) ?: return null
+        return ChannelMapper.toDomain(entity)
     }
 
     override fun findByUserId(userId: Long): List<Channel> =

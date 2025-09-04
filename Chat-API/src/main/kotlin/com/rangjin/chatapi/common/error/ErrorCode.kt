@@ -13,6 +13,9 @@ enum class ErrorCode(
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다"),
 
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다"),
-    WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "잘못된 비밀번호입니다")
+    WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "잘못된 비밀번호입니다"),
+
+    CHANNEL_NOT_FOUND(HttpStatus.NOT_FOUND, "채널을 찾을 수 없습니다"),
+    NOT_IN_CHANNEL(HttpStatus.BAD_REQUEST, "해당 채널에 속해 있지 않습니다")
     ;
 }
