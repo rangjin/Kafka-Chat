@@ -7,8 +7,8 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "message_outbox")
-class MessageOutboxJpaEntity(
+@Table(name = "outbox")
+class OutboxJpaEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

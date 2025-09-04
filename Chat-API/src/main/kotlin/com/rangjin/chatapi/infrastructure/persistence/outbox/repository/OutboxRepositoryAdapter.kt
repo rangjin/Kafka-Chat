@@ -5,21 +5,21 @@ import com.rangjin.chatapi.application.port.out.message.MessagePublisher
 import com.rangjin.chatapi.domain.event.ChannelActivity
 import com.rangjin.chatapi.domain.event.MessageSent
 import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.AggregateType
-import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.MessageOutboxJpaEntity
+import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.OutboxJpaEntity
 import org.springframework.stereotype.Component
 
 @Component
-class MessageOutboxRepositoryAdapter(
+class OutboxRepositoryAdapter(
 
-    private val messageOutboxJpaRepository: MessageOutboxJpaRepository,
+    private val outboxJpaRepository: OutboxJpaRepository,
 
     private val objectMapper: ObjectMapper
 
 ): MessagePublisher {
 
     override fun publish(message: MessageSent): MessageSent {
-        messageOutboxJpaRepository.save(
-            MessageOutboxJpaEntity(
+        outboxJpaRepository.save(
+            OutboxJpaEntity(
                 aggregateType = AggregateType.MESSAGE,
                 aggregateId = message.channelId,
                 payload = objectMapper.writeValueAsString(message),
@@ -31,8 +31,8 @@ class MessageOutboxRepositoryAdapter(
     }
 
     override fun publish(activity: ChannelActivity): ChannelActivity {
-        messageOutboxJpaRepository.save(
-            MessageOutboxJpaEntity(
+        outboxJpaRepository.save(
+            OutboxJpaEntity(
                 aggregateType = AggregateType.CHANNEL_ACTIVITY,
                 aggregateId = activity.channelId,
                 payload = objectMapper.writeValueAsString(activity),
