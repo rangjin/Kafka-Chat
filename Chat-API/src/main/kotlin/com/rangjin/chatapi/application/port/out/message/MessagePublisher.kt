@@ -10,4 +10,6 @@ interface MessagePublisher {
 
     fun publish(activity: ChannelActivity): ChannelActivity
 
+    fun publishAll(activities: List<ChannelActivity>): List<ChannelActivity>
+
 }

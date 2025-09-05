@@ -45,4 +45,21 @@ class OutboxRepositoryAdapter(
         return activity
     }
 
+    override fun publishAll(activities: List<ChannelActivity>): List<ChannelActivity> {
+        val outboxEntities = activities
+            .map {
+                OutboxJpaEntity(
+                    aggregateType = AggregateType.CHANNEL_ACTIVITY,
+                    aggregateId = it.channelId.toString(),
+                    payload = objectMapper.writeValueAsString(it),
+                    type = it.type.value,
+                    timestamp = it.occurredAt
+                )
+            }
+
+        outboxJpaRepository.saveAll(outboxEntities)
+
+        return activities
+    }
+
 }

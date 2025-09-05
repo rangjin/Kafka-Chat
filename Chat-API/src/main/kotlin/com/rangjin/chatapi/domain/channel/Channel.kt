@@ -42,4 +42,9 @@ data class Channel(
         )
     }
 
+    fun removeMember(user: User) {
+        val withdrawMember = members.first { it.user.id == user.id }
+        members -= withdrawMember
+    }
+
 }

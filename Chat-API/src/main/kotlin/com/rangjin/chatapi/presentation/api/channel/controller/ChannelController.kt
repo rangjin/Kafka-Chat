@@ -3,6 +3,7 @@ package com.rangjin.chatapi.presentation.api.channel.controller
 import com.rangjin.chatapi.presentation.auth.AuthPrincipal
 import com.rangjin.chatapi.application.port.`in`.channel.CreateChannelUseCase
 import com.rangjin.chatapi.application.port.`in`.channel.InvitationUseCase
+import com.rangjin.chatapi.application.port.`in`.channel.WithdrawUseCase
 import com.rangjin.chatapi.presentation.api.channel.dto.request.CreateChannelRequest
 import com.rangjin.chatapi.presentation.api.channel.dto.request.InvitationRequest
 import com.rangjin.chatapi.presentation.api.channel.dto.response.ChannelDetailResponse
@@ -20,7 +21,9 @@ class ChannelController(
 
     private val createChannelUseCase: CreateChannelUseCase,
 
-    private val invitationUseCase: InvitationUseCase
+    private val invitationUseCase: InvitationUseCase,
+
+    private val withdrawUseCase: WithdrawUseCase
 
 ) {
 
@@ -43,5 +46,12 @@ class ChannelController(
         InvitationResponse(
             invitedUserIds = invitationUseCase.invitationToChannel(principal.userId, channelId, req.emails)
         )
+
+    @PostMapping("/{channelId}/withdraw")
+    fun postWithdraw(
+        @AuthenticationPrincipal principal: AuthPrincipal,
+        @PathVariable channelId: Long
+    ) =
+        withdrawUseCase.withdrawFromChannel(principal.userId, channelId)
 
 }
