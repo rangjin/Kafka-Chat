@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.presentation.advice.exception
+package com.rangjin.chatapi.presentation.advice
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime

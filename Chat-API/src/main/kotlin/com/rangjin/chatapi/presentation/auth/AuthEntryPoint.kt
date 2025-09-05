@@ -2,7 +2,7 @@ package com.rangjin.chatapi.presentation.auth
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rangjin.chatapi.common.error.ErrorCode
-import com.rangjin.chatapi.presentation.advice.exception.ExceptionResponse
+import com.rangjin.chatapi.presentation.advice.ExceptionResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.MediaType

@@ -2,7 +2,7 @@ package com.rangjin.chatapi.presentation.api.user.controller
 
 import com.rangjin.chatapi.presentation.auth.AuthPrincipal
 import com.rangjin.chatapi.application.port.`in`.channel.ReadMyChannelsUseCase
-import com.rangjin.chatapi.presentation.api.channel.dto.response.ChannelDetailResponse
+import com.rangjin.chatapi.presentation.api.channel.dto.response.MyChannelIdsResponse
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,8 +19,11 @@ class MeController(
     @GetMapping("/channels")
     fun getMyChannels(
         @AuthenticationPrincipal principal: AuthPrincipal
-    ): List<ChannelDetailResponse> =
-        readMyChannelsUseCase.getMyChannels(principal.userId)
-            .map { ChannelDetailResponse.from(it) }
+    ): MyChannelIdsResponse =
+        MyChannelIdsResponse(
+            principal.userId,
+            readMyChannelsUseCase.getMyChannels(principal.userId)
+                .map { it.id!! }
+        )
 
 }

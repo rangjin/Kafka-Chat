@@ -1,7 +1,8 @@
-package com.rangjin.chatapi.presentation.advice.exception
+package com.rangjin.chatapi.presentation.advice
 
 import com.rangjin.chatapi.common.error.CustomException
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -25,18 +26,18 @@ class GlobalExceptionHandler {
     }
 
     // 보안용
-//    @ExceptionHandler(Exception::class)
-//    private fun handlerException(
-//        e: Exception,
-//        request: HttpServletRequest,
-//    ): ResponseEntity<ExceptionResponse<String>> {
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-//            ExceptionResponse(
-//                status = HttpStatus.INTERNAL_SERVER_ERROR,
-//                requestUri = request.requestURI,
-//                data = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
-//            )
-//        )
-//    }
+    @ExceptionHandler(Exception::class)
+    private fun handlerException(
+        e: Exception,
+        request: HttpServletRequest,
+    ): ResponseEntity<ExceptionResponse<String>> {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+            ExceptionResponse(
+                status = HttpStatus.INTERNAL_SERVER_ERROR,
+                requestUri = request.requestURI,
+                data = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
+            )
+        )
+    }
 
 }
