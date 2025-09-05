@@ -16,7 +16,7 @@ class MeController(
 
 ) {
 
-    @GetMapping("/channels")
+    @GetMapping("/channel/ids")
     fun getMyChannels(
         @AuthenticationPrincipal principal: AuthPrincipal
     ): MyChannelIdsResponse =
