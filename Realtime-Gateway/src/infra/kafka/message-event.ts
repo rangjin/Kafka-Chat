@@ -7,5 +7,5 @@ export interface MessageEvent {
 
     content: string;
 
-    sendAt: string;
+    sentAt: string;
 }

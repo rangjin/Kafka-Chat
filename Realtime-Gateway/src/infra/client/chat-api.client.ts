@@ -8,8 +8,8 @@ export const getMychannelsId = async (authorization: string) => {
             },
         });
         if (res.status !== 200) throw new Error('Failed to Authorization');
-        const arr = (await res.json()) as { id: number }[];
-        return arr.map((it) => it.id);
+        const arr = (await res.json()) as { userId: number; channelIds: number[] };
+        return arr;
     } catch (error) {
         console.error(error);
         throw error;
