@@ -9,7 +9,7 @@ data class SendMessageResponse(
 
     val messageId: String,
 
-    val sendAt: LocalDateTime
+    val sentAt: LocalDateTime
 
 ) {
 
@@ -17,7 +17,7 @@ data class SendMessageResponse(
         fun from(message: MessageSent): SendMessageResponse =
             SendMessageResponse(
                 messageId = message.messageId.toString(),
-                sendAt = message.sentAt
+                sentAt = message.sentAt
             )
     }
 
