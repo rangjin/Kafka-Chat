@@ -13,6 +13,7 @@ object ChannelMapper {
     fun toJpa(domain: Channel, ownerRequiredUser: (Long) -> UserJpaEntity): ChannelJpaEntity {
         val channelJpa = ChannelJpaEntity(
             id = domain.id,
+            lastSeq = domain.lastSeq,
             name = domain.name,
             memberships = mutableSetOf()
         )
@@ -33,6 +34,7 @@ object ChannelMapper {
     fun toDomain(jpa: ChannelJpaEntity): Channel =
         Channel(
             id = jpa.id,
+            lastSeq = jpa.lastSeq,
             name = jpa.name,
             members = jpa.memberships.map { m ->
                 Membership(

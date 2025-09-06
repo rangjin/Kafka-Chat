@@ -15,6 +15,7 @@ object MessageMapper {
     ): MessageJpaEntity =
         MessageJpaEntity(
             id = domain.id,
+            seq = domain.seq,
             messageId = domain.messageId.toString(),
             content = domain.content,
             sender = ownerRequiredUser(domain.senderId),
@@ -25,6 +26,7 @@ object MessageMapper {
     fun toDomain(entity: MessageJpaEntity): Message =
         Message(
             id = entity.id!!,
+            seq = entity.seq,
             messageId = UUID.fromString(entity.messageId),
             content = entity.content,
             senderId = entity.sender.id!!,

@@ -20,6 +20,8 @@ class MessageJpaEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
+    val seq: Long,
+
     val messageId: String,
 
     @ManyToOne(fetch = FetchType.LAZY)

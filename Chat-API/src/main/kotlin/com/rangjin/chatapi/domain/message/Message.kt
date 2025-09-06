@@ -7,6 +7,8 @@ data class Message(
 
     val id: Long? = null,
 
+    val seq: Long,
+
     val messageId: UUID,
 
     val channelId: Long,

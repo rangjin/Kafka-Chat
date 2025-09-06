@@ -14,6 +14,8 @@ class ChannelJpaEntity(
 
     val name: String,
 
+    var lastSeq: Long = 0,
+
     @OneToMany(mappedBy = "channel", cascade = [CascadeType.ALL], orphanRemoval = true)
     val memberships: MutableSet<MembershipJpaEntity> = mutableSetOf()
 

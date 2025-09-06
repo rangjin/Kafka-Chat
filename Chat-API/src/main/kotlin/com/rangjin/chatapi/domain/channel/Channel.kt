@@ -11,6 +11,8 @@ data class Channel(
 
     val name: String,
 
+    var lastSeq: Long = 0,
+
     val members: MutableSet<Membership> = mutableSetOf(),
 
     val createdAt: LocalDateTime? = null,
@@ -46,5 +48,7 @@ data class Channel(
         val withdrawMember = members.first { it.user.id == user.id }
         members -= withdrawMember
     }
+
+    fun addLastSeq() = lastSeq++
 
 }
