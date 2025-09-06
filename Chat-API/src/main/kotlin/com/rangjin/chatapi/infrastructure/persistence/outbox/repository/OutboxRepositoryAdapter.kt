@@ -2,8 +2,8 @@ package com.rangjin.chatapi.infrastructure.persistence.outbox.repository
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rangjin.chatapi.application.port.out.message.MessagePublisher
-import com.rangjin.chatapi.domain.event.ChannelActivity
-import com.rangjin.chatapi.domain.event.MessageSent
+import com.rangjin.chatapi.domain.channel.ChannelActivity
+import com.rangjin.chatapi.domain.message.Message
 import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.AggregateType
 import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.OutboxJpaEntity
 import org.springframework.stereotype.Component
@@ -17,7 +17,7 @@ class OutboxRepositoryAdapter(
 
 ): MessagePublisher {
 
-    override fun publish(message: MessageSent): MessageSent {
+    override fun publish(message: Message): Message {
         outboxJpaRepository.save(
             OutboxJpaEntity(
                 aggregateType = AggregateType.MESSAGE,

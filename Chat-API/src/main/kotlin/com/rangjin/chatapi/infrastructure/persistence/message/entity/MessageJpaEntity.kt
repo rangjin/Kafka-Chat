@@ -1,0 +1,35 @@
+package com.rangjin.chatapi.infrastructure.persistence.message.entity
+
+import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
+import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
+import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Table
+import java.time.LocalDateTime
+
+@Entity
+@Table(name = "message")
+class MessageJpaEntity(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+
+    val messageId: String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    val channel: ChannelJpaEntity,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    val sender: UserJpaEntity,
+
+    val content: String,
+
+    val sentAt: LocalDateTime
+
+): BaseTimeEntity()

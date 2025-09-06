@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.application.port.`in`.message
 
-import com.rangjin.chatapi.domain.event.MessageSent
+import com.rangjin.chatapi.domain.message.Message
 import java.time.LocalDateTime
 
 interface SendMessageUseCase {
@@ -10,6 +10,6 @@ interface SendMessageUseCase {
         senderId: Long,
         content: String,
         sendAt: LocalDateTime = LocalDateTime.now()
-    ): MessageSent
+    ): Message
 
 }

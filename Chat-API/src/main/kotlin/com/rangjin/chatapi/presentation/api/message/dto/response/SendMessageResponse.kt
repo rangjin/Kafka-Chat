@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.presentation.api.message.dto.response
 
-import com.rangjin.chatapi.domain.event.MessageSent
+import com.rangjin.chatapi.domain.message.Message
 import java.time.LocalDateTime
 
 data class SendMessageResponse(
@@ -14,7 +14,7 @@ data class SendMessageResponse(
 ) {
 
     companion object {
-        fun from(message: MessageSent): SendMessageResponse =
+        fun from(message: Message): SendMessageResponse =
             SendMessageResponse(
                 messageId = message.messageId.toString(),
                 sentAt = message.sentAt

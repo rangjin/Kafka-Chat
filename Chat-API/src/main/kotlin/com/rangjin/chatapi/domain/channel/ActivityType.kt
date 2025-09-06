@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.domain.event
+package com.rangjin.chatapi.domain.channel
 
 enum class ActivityType(
 

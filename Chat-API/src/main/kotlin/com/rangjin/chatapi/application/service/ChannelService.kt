@@ -10,7 +10,7 @@ import com.rangjin.chatapi.application.port.out.user.UserRepository
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
 import com.rangjin.chatapi.domain.channel.Channel
-import com.rangjin.chatapi.domain.event.ChannelActivity
+import com.rangjin.chatapi.domain.channel.ChannelActivity
 import com.rangjin.chatapi.domain.membership.MembershipRole
 import com.rangjin.chatapi.domain.user.User
 import org.springframework.stereotype.Service

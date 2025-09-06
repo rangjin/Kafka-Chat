@@ -1,9 +1,11 @@
-package com.rangjin.chatapi.domain.event
+package com.rangjin.chatapi.domain.message
 
 import java.time.LocalDateTime
 import java.util.UUID
 
-data class MessageSent(
+data class Message(
+
+    val id: Long? = null,
 
     val messageId: UUID,
 

@@ -1,4 +1,4 @@
-package com.rangjin.chatapi.domain.event
+package com.rangjin.chatapi.domain.channel
 
 import com.rangjin.chatapi.domain.membership.MembershipRole
 import java.time.LocalDateTime
