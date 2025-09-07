@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="09576507-61f4-4b7f-a0cb-c852bed0e904" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/../Chat-API/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat-API/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/application/port/out/channel/ChannelRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/application/port/out/channel/ChannelWritePort.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/application/service/ChannelService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/application/service/ChannelService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/application/service/MessageService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/application/service/MessageService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/infrastructure/persistence/channel/mapper/ChannelMapper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/infrastructure/persistence/channel/mapper/ChannelMapper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/infrastructure/persistence/channel/repository/ChannelRepositoryAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat-API/src/main/kotlin/com/rangjin/chatapi/infrastructure/persistence/channel/repository/ChannelWritePortAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/ProjectionServiceApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/config/IndexProps.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/config/IndexSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/config/IndexerConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/full/FullIndexScheduler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/full/GenericFullIndexer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/index/channel/ChannelDoc.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/index/channel/ChannelIndexSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/index/message/MessageDoc.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/index/message/MessageIndexSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/index/user/UserDoc.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/index/user/UserIndexSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/util/BlueGreenPlanner.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/util/BulkWriter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/util/EsAdminClient.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/indexer/util/IndexCreator.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/channel/entity/ChannelJpaEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/channel/repository/ChannelJpaRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/common/BaseTimeEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/membership/entity/MembershipJpaEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/membership/entity/MembershipRole.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/membership/repository/MembershipJpaRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/message/entity/MessageJpaEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/message/repository/MessageJpaRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/user/entity/UserJpaEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rangjin/projectionservice/infrastructure/persistence/user/repository/UserJpaRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/rangjin/projectionservice/ProjectionServiceApplicationTests.kt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="32N0Ir44NNnshdTBwOMe3dqJEQA" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Projection_Service 빌드.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ProjectionServiceApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/sangjin/projects/Kafka-Chat/Projection_Service/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Projection_Service" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Projection_Service" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ProjectionServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Projection-Service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.rangjin.projectionservice.ProjectionServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.28293.22" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.28293.22" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="09576507-61f4-4b7f-a0cb-c852bed0e904" name="변경" comment="" />
+      <created>1757245645633</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757245645633</updated>
+      <workItem from="1757245646698" duration="3064000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
