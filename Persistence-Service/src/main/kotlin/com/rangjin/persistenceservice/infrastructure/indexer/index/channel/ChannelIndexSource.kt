@@ -30,7 +30,9 @@ class ChannelIndexSource(
     override fun toDoc(entity: ChannelJpaEntity): ChannelDoc =
         ChannelDoc(
             entity.id!!,
+            entity.uuid,
             entity.name,
+            entity.lastSeq,
             entity.createdAt,
             entity.updatedAt
         )

@@ -12,6 +12,8 @@ class ChannelJpaEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
+    val uuid: String,
+
     val name: String,
 
     var lastSeq: Long = 0,

@@ -29,7 +29,8 @@ class MessageIndexSource(
 
     override fun toDoc(entity: MessageJpaEntity): MessageDoc =
         MessageDoc(
-            entity.messageId,
+            entity.id!!,
+            entity.uuid,
             entity.seq,
             entity.channel.id!!,
             entity.sender.id!!,

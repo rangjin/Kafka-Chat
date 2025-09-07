@@ -16,7 +16,7 @@ class MessageJpaEntity(
 
     val seq: Long,
 
-    val messageId: String,
+    val uuid: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     val channel: ChannelJpaEntity,

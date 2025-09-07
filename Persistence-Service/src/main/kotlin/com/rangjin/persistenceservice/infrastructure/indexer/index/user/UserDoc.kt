@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 data class UserDoc(
 
     @Id
-    val userId: Long,
+    val id: Long,
 
     @Field(type = FieldType.Keyword)
     val username: String,

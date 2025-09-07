@@ -11,15 +11,18 @@ import java.time.LocalDateTime
 data class MessageDoc(
 
     @Id
-    val messageId: String,
+    val id: Long,
+
+    @Field(type = FieldType.Keyword)
+    val uuid: String,
 
     @Field(type = FieldType.Long)
     val seq: Long?,
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Long)
     val channelId: Long,
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Long)
     val senderId: Long,
 
     @Field(type = FieldType.Text)
