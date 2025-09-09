@@ -3,13 +3,7 @@ package com.rangjin.chatapi.infrastructure.persistence.message.entity
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
@@ -34,4 +28,4 @@ class MessageJpaEntity(
 
     val sentAt: LocalDateTime
 
-): BaseTimeEntity()
+) : BaseTimeEntity()

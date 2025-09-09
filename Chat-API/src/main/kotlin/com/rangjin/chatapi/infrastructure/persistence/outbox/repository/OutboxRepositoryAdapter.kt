@@ -2,9 +2,7 @@ package com.rangjin.chatapi.infrastructure.persistence.outbox.repository
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rangjin.chatapi.application.port.out.message.MessagePublisher
-import com.rangjin.chatapi.domain.channel.ChannelActivity
-import com.rangjin.chatapi.domain.message.Message
-import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.AggregateType
+import com.rangjin.chatapi.domain.channel.ChannelEvent
 import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.OutboxJpaEntity
 import org.springframework.stereotype.Component
 
@@ -15,51 +13,32 @@ class OutboxRepositoryAdapter(
 
     private val objectMapper: ObjectMapper
 
-): MessagePublisher {
+) : MessagePublisher {
 
-    override fun publish(message: Message): Message {
+    override fun <T> publish(event: ChannelEvent<T>) {
         outboxJpaRepository.save(
             OutboxJpaEntity(
-                aggregateType = AggregateType.MESSAGE,
-                aggregateId = message.channelId.toString(),
-                payload = objectMapper.writeValueAsString(message),
-                type = "MessageSent",
-                timestamp = message.sentAt
+                aggregateType = "event",
+                aggregateId = event.aggregateId,
+                payload = objectMapper.writeValueAsString(event),
+                type = event.payload!!::class.simpleName!!,
+                timestamp = event.timestamp
             )
         )
-
-        return message
     }
 
-    override fun publish(activity: ChannelActivity): ChannelActivity {
-        outboxJpaRepository.save(
+    override fun <T> publishAll(events: List<ChannelEvent<T>>) {
+        val outboxEntities = events.map {
             OutboxJpaEntity(
-                aggregateType = AggregateType.CHANNEL_ACTIVITY,
-                aggregateId = activity.channelId.toString(),
-                payload = objectMapper.writeValueAsString(activity),
-                type = activity.type.value,
-                timestamp = activity.occurredAt
+                aggregateType = "event",
+                aggregateId = it.aggregateId,
+                payload = objectMapper.writeValueAsString(it),
+                type = it.payload!!::class.simpleName!!,
+                timestamp = it.timestamp
             )
-        )
-
-        return activity
-    }
-
-    override fun publishAll(activities: List<ChannelActivity>): List<ChannelActivity> {
-        val outboxEntities = activities
-            .map {
-                OutboxJpaEntity(
-                    aggregateType = AggregateType.CHANNEL_ACTIVITY,
-                    aggregateId = it.channelId.toString(),
-                    payload = objectMapper.writeValueAsString(it),
-                    type = it.type.value,
-                    timestamp = it.occurredAt
-                )
-            }
+        }
 
         outboxJpaRepository.saveAll(outboxEntities)
-
-        return activities
     }
 
 }

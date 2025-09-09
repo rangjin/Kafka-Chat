@@ -6,12 +6,14 @@ import org.springframework.data.jpa.repository.Query
 
 interface ChannelJpaRepository : JpaRepository<ChannelJpaEntity, Long> {
 
-    @Query("""
+    @Query(
+        """
         select distinct c
         from ChannelJpaEntity c
         join c.memberships m
         where m.user.id = :userId
-    """)
+    """
+    )
     fun findAllByUserId(userId: Long): List<ChannelJpaEntity>
 
 }

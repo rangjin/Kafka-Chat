@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.infrastructure.persistence.channel.repository
 
-import com.rangjin.chatapi.domain.channel.Channel
 import com.rangjin.chatapi.application.port.out.channel.ChannelRepository
+import com.rangjin.chatapi.domain.channel.Channel
 import com.rangjin.chatapi.infrastructure.persistence.channel.mapper.ChannelMapper
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
 import jakarta.persistence.EntityManager

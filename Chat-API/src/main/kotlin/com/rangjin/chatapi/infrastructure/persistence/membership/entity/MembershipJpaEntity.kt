@@ -4,19 +4,7 @@ import com.rangjin.chatapi.domain.membership.MembershipRole
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Index
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.Table
-import jakarta.persistence.UniqueConstraint
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 

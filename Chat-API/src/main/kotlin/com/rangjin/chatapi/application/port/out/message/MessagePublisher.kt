@@ -1,15 +1,12 @@
 package com.rangjin.chatapi.application.port.out.message
 
-import com.rangjin.chatapi.domain.channel.ChannelActivity
-import com.rangjin.chatapi.domain.message.Message
+import com.rangjin.chatapi.domain.channel.ChannelEvent
 
 
 interface MessagePublisher {
 
-    fun publish(message: Message): Message
+    fun <T> publish(event: ChannelEvent<T>)
 
-    fun publish(activity: ChannelActivity): ChannelActivity
-
-    fun publishAll(activities: List<ChannelActivity>): List<ChannelActivity>
+    fun <T> publishAll(events: List<ChannelEvent<T>>)
 
 }

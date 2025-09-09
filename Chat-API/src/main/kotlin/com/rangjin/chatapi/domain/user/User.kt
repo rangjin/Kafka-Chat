@@ -16,4 +16,4 @@ data class User(
 
     val updatedAt: LocalDateTime? = null,
 
-)
+    )

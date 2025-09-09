@@ -2,7 +2,6 @@ package com.rangjin.chatapi.infrastructure.persistence.outbox.entity
 
 import com.fasterxml.jackson.annotation.JsonRawValue
 import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
-import com.rangjin.chatapi.infrastructure.persistence.outbox.converter.AggregateTypeConverter
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -14,9 +13,8 @@ class OutboxJpaEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Convert(converter = AggregateTypeConverter::class)
     @Column(name = "aggregate_type", nullable = false, length = 100)
-    val aggregateType: AggregateType,
+    val aggregateType: String,
 
     @Column(name = "aggregate_id", nullable = false, length = 64)
     val aggregateId: String,

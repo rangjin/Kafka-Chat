@@ -1,8 +1,8 @@
 package com.rangjin.chatapi.domain.channel
 
 import com.rangjin.chatapi.domain.membership.Membership
-import com.rangjin.chatapi.domain.user.User
 import com.rangjin.chatapi.domain.membership.MembershipRole
+import com.rangjin.chatapi.domain.user.User
 import java.time.LocalDateTime
 
 data class Channel(
@@ -44,9 +44,10 @@ data class Channel(
         )
     }
 
-    fun removeMember(user: User) {
+    fun removeMember(user: User): Membership {
         val withdrawMember = members.first { it.user.id == user.id }
         members -= withdrawMember
+        return withdrawMember
     }
 
     fun addLastSeq() = lastSeq++

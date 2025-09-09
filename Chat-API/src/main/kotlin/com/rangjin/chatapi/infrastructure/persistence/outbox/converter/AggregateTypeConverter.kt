@@ -5,7 +5,7 @@ import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 
 @Converter(autoApply = true)
-class AggregateTypeConverter: AttributeConverter<AggregateType, String> {
+class AggregateTypeConverter : AttributeConverter<AggregateType, String> {
 
     override fun convertToDatabaseColumn(p0: AggregateType?): String? =
         p0?.dbValue

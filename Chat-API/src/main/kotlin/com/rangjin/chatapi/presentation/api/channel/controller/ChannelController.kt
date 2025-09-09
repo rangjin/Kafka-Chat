@@ -1,6 +1,5 @@
 package com.rangjin.chatapi.presentation.api.channel.controller
 
-import com.rangjin.chatapi.presentation.auth.AuthPrincipal
 import com.rangjin.chatapi.application.port.`in`.channel.CreateChannelUseCase
 import com.rangjin.chatapi.application.port.`in`.channel.InvitationUseCase
 import com.rangjin.chatapi.application.port.`in`.channel.WithdrawUseCase
@@ -8,12 +7,9 @@ import com.rangjin.chatapi.presentation.api.channel.dto.request.CreateChannelReq
 import com.rangjin.chatapi.presentation.api.channel.dto.request.InvitationRequest
 import com.rangjin.chatapi.presentation.api.channel.dto.response.ChannelDetailResponse
 import com.rangjin.chatapi.presentation.api.channel.dto.response.InvitationResponse
+import com.rangjin.chatapi.presentation.auth.AuthPrincipal
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/channel")

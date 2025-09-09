@@ -4,4 +4,4 @@ data class SendMessageRequest(
 
     val message: String,
 
-)
+    )

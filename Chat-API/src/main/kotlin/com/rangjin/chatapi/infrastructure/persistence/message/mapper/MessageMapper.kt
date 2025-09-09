@@ -4,7 +4,7 @@ import com.rangjin.chatapi.domain.message.Message
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.message.entity.MessageJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.user.entity.UserJpaEntity
-import java.util.UUID
+import java.util.*
 
 object MessageMapper {
 

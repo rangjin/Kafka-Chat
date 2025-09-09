@@ -15,7 +15,7 @@ class MessageRepositoryAdapter(
 
     private val em: EntityManager
 
-): MessageRepository {
+) : MessageRepository {
 
     override fun save(message: Message): Message {
         val userRef: (Long) -> UserJpaEntity = {

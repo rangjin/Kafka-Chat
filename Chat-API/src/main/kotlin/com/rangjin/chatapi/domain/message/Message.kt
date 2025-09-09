@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.domain.message
 
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 data class Message(
 

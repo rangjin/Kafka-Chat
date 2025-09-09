@@ -6,11 +6,13 @@ import com.rangjin.chatapi.application.port.out.message.MessagePublisher
 import com.rangjin.chatapi.application.port.out.message.MessageRepository
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
+import com.rangjin.chatapi.domain.channel.ChannelEvent
+import com.rangjin.chatapi.domain.channel.ChannelEventType
 import com.rangjin.chatapi.domain.message.Message
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 @Service
 class MessageService(
@@ -44,10 +46,16 @@ class MessageService(
             )
         )
 
-        messagePublisher.publish(message)
-
         channel.addLastSeq()
         channelRepository.save(channel)
+
+        messagePublisher.publish(
+            ChannelEvent(
+                aggregateId = message.channelId.toString(),
+                type = ChannelEventType.CREATE,
+                payload = message
+            )
+        )
 
         return message
     }
