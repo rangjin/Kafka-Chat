@@ -1,7 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.channel.entity
 
 import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
-import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipJpaEntity
 import jakarta.persistence.*
 
 @Entity
@@ -16,7 +15,4 @@ class ChannelJpaEntity(
 
     var lastSeq: Long = 0,
 
-    @OneToMany(mappedBy = "channel", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val memberships: MutableSet<MembershipJpaEntity> = mutableSetOf()
-
-) : BaseTimeEntity()
+    ) : BaseTimeEntity()

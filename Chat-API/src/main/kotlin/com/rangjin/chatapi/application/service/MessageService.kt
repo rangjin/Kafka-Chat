@@ -1,13 +1,14 @@
 package com.rangjin.chatapi.application.service
 
+import com.rangjin.chatapi.application.event.DomainEvent
+import com.rangjin.chatapi.application.event.DomainEventType
 import com.rangjin.chatapi.application.port.`in`.message.SendMessageUseCase
 import com.rangjin.chatapi.application.port.out.channel.ChannelRepository
 import com.rangjin.chatapi.application.port.out.message.MessagePublisher
 import com.rangjin.chatapi.application.port.out.message.MessageRepository
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
-import com.rangjin.chatapi.domain.channel.ChannelEvent
-import com.rangjin.chatapi.domain.channel.ChannelEventType
+import com.rangjin.chatapi.domain.membership.Membership
 import com.rangjin.chatapi.domain.message.Message
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -50,9 +51,10 @@ class MessageService(
         channelRepository.save(channel)
 
         messagePublisher.publish(
-            ChannelEvent(
+            DomainEvent(
                 aggregateId = message.channelId.toString(),
-                type = ChannelEventType.CREATE,
+                className = Membership::class.simpleName!!,
+                type = DomainEventType.CREATE,
                 payload = message
             )
         )

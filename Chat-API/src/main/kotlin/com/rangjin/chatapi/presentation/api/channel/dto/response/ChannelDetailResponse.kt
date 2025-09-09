@@ -1,7 +1,6 @@
 package com.rangjin.chatapi.presentation.api.channel.dto.response
 
 import com.rangjin.chatapi.domain.channel.Channel
-import com.rangjin.chatapi.domain.user.User
 import java.time.LocalDateTime
 
 data class ChannelDetailResponse(
@@ -9,8 +8,6 @@ data class ChannelDetailResponse(
     val id: Long? = null,
 
     val name: String,
-
-    val members: List<User> = emptyList(),
 
     val createdAt: LocalDateTime? = null,
 
@@ -23,7 +20,6 @@ data class ChannelDetailResponse(
             ChannelDetailResponse(
                 id = channel.id,
                 name = channel.name,
-                members = channel.members.map { it.user },
                 createdAt = channel.createdAt,
                 updatedAt = channel.updatedAt
             )

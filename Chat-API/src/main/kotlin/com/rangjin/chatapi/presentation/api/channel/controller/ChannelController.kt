@@ -40,7 +40,11 @@ class ChannelController(
         @RequestBody req: InvitationRequest
     ): InvitationResponse =
         InvitationResponse(
-            invitedUserIds = invitationUseCase.invitationToChannel(principal.userId, channelId, req.emails)
+            invitedUserIds = invitationUseCase.invitationToChannel(
+                principal.userId,
+                channelId,
+                req.emails
+            ).map { it.id!! }
         )
 
     @PostMapping("/{channelId}/withdraw")

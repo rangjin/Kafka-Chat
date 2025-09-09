@@ -1,12 +1,14 @@
-package com.rangjin.chatapi.domain.channel
+package com.rangjin.chatapi.application.event
 
 import java.time.LocalDateTime
 
-data class ChannelEvent<T>(
+data class DomainEvent<T>(
 
     val aggregateId: String,
 
-    val type: ChannelEventType,
+    val className: String,
+
+    val type: DomainEventType,
 
     val payload: T,
 

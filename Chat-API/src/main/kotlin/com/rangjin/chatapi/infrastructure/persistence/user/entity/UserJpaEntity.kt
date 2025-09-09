@@ -1,7 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.user.entity
 
 import com.rangjin.chatapi.infrastructure.persistence.common.BaseTimeEntity
-import com.rangjin.chatapi.infrastructure.persistence.membership.entity.MembershipJpaEntity
 import jakarta.persistence.*
 
 @Entity
@@ -21,7 +20,4 @@ class UserJpaEntity(
     @Column(nullable = false)
     val password: String,
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val memberships: MutableSet<MembershipJpaEntity> = mutableSetOf()
-
-) : BaseTimeEntity()
+    ) : BaseTimeEntity()

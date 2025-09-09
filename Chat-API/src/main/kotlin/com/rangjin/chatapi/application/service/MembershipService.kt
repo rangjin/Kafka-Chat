@@ -1,5 +1,8 @@
 package com.rangjin.chatapi.application.service
 
+import com.rangjin.chatapi.application.event.DomainEvent
+import com.rangjin.chatapi.application.event.DomainEventType
+import com.rangjin.chatapi.application.event.MembershipEvent
 import com.rangjin.chatapi.application.port.`in`.channel.InvitationUseCase
 import com.rangjin.chatapi.application.port.`in`.channel.WithdrawUseCase
 import com.rangjin.chatapi.application.port.out.channel.ChannelRepository
@@ -8,15 +11,11 @@ import com.rangjin.chatapi.application.port.out.message.MessagePublisher
 import com.rangjin.chatapi.application.port.out.user.UserRepository
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
-import com.rangjin.chatapi.domain.channel.Channel
-import com.rangjin.chatapi.domain.channel.ChannelEvent
-import com.rangjin.chatapi.domain.channel.ChannelEventType
 import com.rangjin.chatapi.domain.membership.Membership
 import com.rangjin.chatapi.domain.membership.MembershipRole
 import com.rangjin.chatapi.domain.user.User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
 
 @Service
 class MembershipService(
@@ -35,21 +34,23 @@ class MembershipService(
     override fun invitationToChannel(
         userId: Long, channelId: Long, invitedEmails: List<String>
     ): List<User> {
-        val channel: Channel = channelRepository.findById(channelId)
+        val channel = channelRepository.findById(channelId)
             ?: throw CustomException(ErrorCode.CHANNEL_NOT_FOUND)
 
-        if (!channel.existsMember(userId))
+        if (!membershipRepository.existsByUserIdAndChannelId(userId, channelId))
             throw CustomException(ErrorCode.NOT_IN_CHANNEL)
+
+        val existingEmails = membershipRepository.findAllByChannelId(channelId)
+            .map { it.user.email }
 
         val invitedUserMembership =
             userRepository.findByEmailIn(invitedEmails)
-                .filter { it -> !channel.existsMember(it.id!!) }
+                .filter { it.email !in existingEmails }
                 .map {
                     Membership(
-                        channelId = channelId,
+                        channel = channel,
                         user = it,
-                        role = MembershipRole.MEMBER,
-                        joinedAt = LocalDateTime.now()
+                        role = MembershipRole.MEMBER
                     )
                 }
 
@@ -57,10 +58,11 @@ class MembershipService(
 
         messagePublisher.publishAll(
             memberships.map {
-                ChannelEvent(
+                DomainEvent(
                     aggregateId = channelId.toString(),
-                    type = ChannelEventType.CREATE,
-                    payload = it
+                    className = Membership::class.simpleName!!,
+                    type = DomainEventType.CREATE,
+                    payload = MembershipEvent.fromDomain(it)
                 )
             }
         )
@@ -72,24 +74,20 @@ class MembershipService(
     override fun withdrawFromChannel(
         userId: Long, channelId: Long
     ): Boolean {
-        val channel: Channel = channelRepository.findById(channelId)
-            ?: throw CustomException(ErrorCode.CHANNEL_NOT_FOUND)
+        if (!channelRepository.existsById(channelId))
+            throw CustomException(ErrorCode.CHANNEL_NOT_FOUND)
 
-        if (!channel.existsMember(userId))
-            throw CustomException(ErrorCode.NOT_IN_CHANNEL)
+        val membership = membershipRepository.findByUserIdAndChannelId(userId, channelId)
+            ?: throw CustomException(ErrorCode.NOT_IN_CHANNEL)
 
-        val user = userRepository.findById(userId)
-            ?: throw CustomException(ErrorCode.USER_NOT_FOUND)
-
-        val deleteMembership = channel.removeMember(user)
-
-        channelRepository.save(channel)
+        membershipRepository.delete(membership)
 
         messagePublisher.publish(
-            ChannelEvent(
-                aggregateId = deleteMembership.channelId!!.toString(),
-                type = ChannelEventType.DELETE,
-                payload = deleteMembership,
+            DomainEvent(
+                aggregateId = channelId.toString(),
+                className = Membership::class.simpleName!!,
+                type = DomainEventType.DELETE,
+                payload = MembershipEvent.fromDomain(membership)
             )
         )
 

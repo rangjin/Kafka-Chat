@@ -17,6 +17,10 @@ data class Message(
 
     val content: String,
 
-    val sentAt: LocalDateTime
+    val sentAt: LocalDateTime,
+
+    val createdAt: LocalDateTime? = LocalDateTime.now(),
+
+    val updatedAt: LocalDateTime? = LocalDateTime.now()
 
 )

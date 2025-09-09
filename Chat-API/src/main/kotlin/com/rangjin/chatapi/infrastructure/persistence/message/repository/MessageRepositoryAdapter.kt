@@ -17,18 +17,23 @@ class MessageRepositoryAdapter(
 
 ) : MessageRepository {
 
-    override fun save(message: Message): Message {
-        val userRef: (Long) -> UserJpaEntity = {
-            em.getReference(UserJpaEntity::class.java, it)
-        }
-
-        val channelRef: (Long) -> ChannelJpaEntity = {
-            em.getReference(ChannelJpaEntity::class.java, it)
-        }
-
-        val entity = MessageMapper.toJpa(message, userRef, channelRef)
-
-        return MessageMapper.toDomain(messageJpaRepository.save(entity))
+    private val userRef: (Long) -> UserJpaEntity = {
+        em.getReference(UserJpaEntity::class.java, it)
     }
+
+    private val channelRef: (Long) -> ChannelJpaEntity = {
+        em.getReference(ChannelJpaEntity::class.java, it)
+    }
+
+    override fun save(message: Message): Message =
+        MessageMapper.toDomain(
+            messageJpaRepository.save(
+                MessageMapper.toJpa(
+                    message,
+                    userRef,
+                    channelRef
+                )
+            )
+        )
 
 }

@@ -31,7 +31,9 @@ object MessageMapper {
             content = entity.content,
             senderId = entity.sender.id!!,
             channelId = entity.channel.id!!,
-            sentAt = entity.sentAt
+            sentAt = entity.sentAt,
+            createdAt = entity.createdAt,
+            updatedAt = entity.updatedAt
         )
 
 }

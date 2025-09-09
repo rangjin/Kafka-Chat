@@ -13,24 +13,21 @@ class UserRepositoryAdapter(
 
 ) : UserRepository {
 
-    override fun save(user: User): User {
-        val entity = UserMapper.toJpa(user)
-        val saved = userJpaRepository.save(entity)
-        return UserMapper.toDomain(saved)
-    }
+    override fun save(user: User): User =
+        UserMapper.toDomain(
+            userJpaRepository.save(
+                UserMapper.toJpa(user)
+            )
+        )
 
     override fun existsById(id: Long): Boolean =
         userJpaRepository.existsById(id)
 
-    override fun findById(id: Long): User? {
-        val entity = userJpaRepository.findByIdOrNull(id) ?: return null
-        return UserMapper.toDomain(entity)
-    }
+    override fun findById(id: Long): User? =
+        userJpaRepository.findByIdOrNull(id)?.let { UserMapper.toDomain(it) }
 
-    override fun findByEmail(email: String): User? {
-        val entity = userJpaRepository.findByEmail(email) ?: return null
-        return UserMapper.toDomain(entity)
-    }
+    override fun findByEmail(email: String): User? =
+        userJpaRepository.findByEmail(email)?.let { UserMapper.toDomain(it) }
 
     override fun findByEmailIn(emails: List<String>): List<User> =
         userJpaRepository.findByEmailIn(emails)

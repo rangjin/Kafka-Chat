@@ -1,8 +1,8 @@
 package com.rangjin.chatapi.infrastructure.persistence.outbox.repository
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.rangjin.chatapi.application.event.DomainEvent
 import com.rangjin.chatapi.application.port.out.message.MessagePublisher
-import com.rangjin.chatapi.domain.channel.ChannelEvent
 import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.OutboxJpaEntity
 import org.springframework.stereotype.Component
 
@@ -15,25 +15,25 @@ class OutboxRepositoryAdapter(
 
 ) : MessagePublisher {
 
-    override fun <T> publish(event: ChannelEvent<T>) {
+    override fun <T> publish(event: DomainEvent<T>) {
         outboxJpaRepository.save(
             OutboxJpaEntity(
                 aggregateType = "event",
                 aggregateId = event.aggregateId,
                 payload = objectMapper.writeValueAsString(event),
-                type = event.payload!!::class.simpleName!!,
+                type = event.className,
                 timestamp = event.timestamp
             )
         )
     }
 
-    override fun <T> publishAll(events: List<ChannelEvent<T>>) {
+    override fun <T> publishAll(events: List<DomainEvent<T>>) {
         val outboxEntities = events.map {
             OutboxJpaEntity(
                 aggregateType = "event",
                 aggregateId = it.aggregateId,
                 payload = objectMapper.writeValueAsString(it),
-                type = it.payload!!::class.simpleName!!,
+                type = it.className,
                 timestamp = it.timestamp
             )
         }
