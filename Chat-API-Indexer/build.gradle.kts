@@ -8,7 +8,7 @@ plugins {
 
 group = "com.rangjin"
 version = "0.0.1-SNAPSHOT"
-description = "Projection-Service"
+description = "Chat-API-Indexer"
 
 java {
     toolchain {

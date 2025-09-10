@@ -1,4 +1,4 @@
-package com.rangjin.chatapiindexer.infrastructure.indexer.config
+package com.rangjin.chatapiindexer.application.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

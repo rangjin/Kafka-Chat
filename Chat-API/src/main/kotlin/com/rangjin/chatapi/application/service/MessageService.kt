@@ -8,7 +8,6 @@ import com.rangjin.chatapi.application.port.out.message.MessagePublisher
 import com.rangjin.chatapi.application.port.out.message.MessageRepository
 import com.rangjin.chatapi.common.error.CustomException
 import com.rangjin.chatapi.common.error.ErrorCode
-import com.rangjin.chatapi.domain.membership.Membership
 import com.rangjin.chatapi.domain.message.Message
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -53,7 +52,7 @@ class MessageService(
         messagePublisher.publish(
             DomainEvent(
                 aggregateId = message.channelId.toString(),
-                className = Membership::class.simpleName!!,
+                className = Message::class.simpleName!!,
                 type = DomainEventType.CREATE,
                 payload = message
             )

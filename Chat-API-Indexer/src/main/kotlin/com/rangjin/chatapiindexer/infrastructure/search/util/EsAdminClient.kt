@@ -1,8 +1,10 @@
-package com.rangjin.chatapiindexer.infrastructure.indexer.util
+package com.rangjin.chatapiindexer.infrastructure.search.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
@@ -15,7 +17,9 @@ class EsAdminClient(
     @Value("\${spring.elasticsearch.uris}")
     private val esUri: String,
 
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+
+    private val operations: ElasticsearchOperations
 
 ) {
 
@@ -66,6 +70,10 @@ class EsAdminClient(
             mapOf("actions" to actions),
             String::class.java
         )
+    }
+
+    fun refresh(index: String) {
+        operations.indexOps(IndexCoordinates.of(index)).refresh()
     }
 
 }

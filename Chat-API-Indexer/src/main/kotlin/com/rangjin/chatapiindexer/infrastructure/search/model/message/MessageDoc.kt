@@ -1,5 +1,6 @@
-package com.rangjin.chatapiindexer.infrastructure.indexer.index.message
+package com.rangjin.chatapiindexer.infrastructure.search.model.message
 
+import com.rangjin.chatapiindexer.domain.Message
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.DateFormat
 import org.springframework.data.elasticsearch.annotations.Document
@@ -46,4 +47,21 @@ data class MessageDoc(
     )
     val updatedAt: LocalDateTime
 
-)
+) {
+
+    companion object {
+        fun fromDomain(domain: Message) =
+            MessageDoc(
+                domain.id,
+                domain.seq,
+                domain.messageId,
+                domain.channelId,
+                domain.senderId,
+                domain.content,
+                domain.sentAt,
+                domain.createdAt,
+                domain.updatedAt
+            )
+    }
+
+}

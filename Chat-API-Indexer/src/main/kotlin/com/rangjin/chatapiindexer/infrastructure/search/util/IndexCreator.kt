@@ -1,4 +1,4 @@
-package com.rangjin.chatapiindexer.infrastructure.indexer.util
+package com.rangjin.chatapiindexer.infrastructure.search.util
 
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates

@@ -1,22 +1,27 @@
-package com.rangjin.chatapiindexer.infrastructure.indexer.util
+package com.rangjin.chatapiindexer.infrastructure.search.adapter
 
+import com.rangjin.chatapiindexer.application.port.out.BulkIndexPort
+import com.rangjin.chatapiindexer.application.port.out.DocMapper
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder
 import org.springframework.stereotype.Component
 
 @Component
-class BulkWriter(
+class EsBulkIndexAdapter(
 
     private val ops: ElasticsearchOperations
 
-) {
+) : BulkIndexPort {
 
-    fun <T : Any> saveAll(
+    override fun <E : Any, D : Any> saveAll(
         index: String,
-        docs: Collection<T>
+        rows: Collection<E>,
+        mapper: DocMapper<E, D>
     ) {
-        if (docs.isEmpty()) return
+        if (rows.isEmpty()) return
+
+        val docs: List<D> = rows.map { mapper.toDoc(it) }
 
         val queries =
             docs.map {
@@ -28,7 +33,5 @@ class BulkWriter(
         ops.bulkIndex(queries, IndexCoordinates.of(index))
     }
 
-    fun refresh(index: String) =
-        ops.indexOps(IndexCoordinates.of(index)).refresh()
 
 }
