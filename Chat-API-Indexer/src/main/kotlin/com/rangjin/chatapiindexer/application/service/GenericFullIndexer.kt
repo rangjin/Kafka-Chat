@@ -16,7 +16,7 @@ class GenericFullIndexer(
 
     private val lifecycle: IndexLifecyclePort,
 
-    private val bulk: BulkIndexPort,
+    private val bulkIndexPort: BulkIndexPort,
 
     private val sources: List<PageSource<*>>,
 
@@ -26,42 +26,48 @@ class GenericFullIndexer(
 
     override fun runAll() {
         indexProps.domains.forEach { (name, cfg) ->
-            val source = castSource<Any>(
-                sources.firstOrNull { it.name == name } ?: return@forEach
-            )
-            val mapper = castMapper<Any, Any>(
-                mappers.firstOrNull { it.domain == name } ?: return@forEach
-            )
-
-            val plan = lifecycle.plan(cfg.blue, cfg.green, cfg.alias)
-
-            lifecycle.recreateIndexWithMapper(
-                index = plan.standby,
-                mapper = mapper,
-                settings = mapOf("index" to mapOf("number_of_replicas" to 0, "refresh_interval" to "-1"))
-            )
-
-            var after = 0L
-            val page = PageRequest.of(0, cfg.batchSize)
-            while (true) {
-                val rows = source.fetchPage(after, page)
-                if (rows.isEmpty()) break
-
-                bulk.saveAll(
-                    index = plan.standby,
-                    rows = rows,
-                    mapper = mapper
+            try {
+                val source = castSource<Any>(
+                    sources.firstOrNull { it.name == name } ?: return@forEach
+                )
+                val mapper = castMapper<Any, Any>(
+                    mappers.firstOrNull { it.domain == name } ?: return@forEach
                 )
 
-                after = source.entityId(rows.last())
-            }
+                val plan = lifecycle.plan(cfg.blue, cfg.green, cfg.alias)
 
-            lifecycle.refresh(plan.standby)
-            lifecycle.putIndexSettings(
-                plan.standby,
-                mapOf("index" to mapOf("number_of_replicas" to 1, "refresh_interval" to "1s"))
-            )
-            lifecycle.switchAlias(alias = plan.alias, removeIndex = plan.active, addIndex = plan.standby)
+                lifecycle.fullIndexStart(plan)
+
+                lifecycle.recreateIndex(
+                    index = plan.standby,
+                    mapper = mapper,
+                    settings = mapOf("index" to mapOf("number_of_replicas" to 0, "refresh_interval" to "-1"))
+                )
+
+                var after = 0L
+                val page = PageRequest.of(0, cfg.batchSize)
+                while (true) {
+                    val rows = source.fetchPage(after, page)
+                    if (rows.isEmpty()) break
+
+                    bulkIndexPort.saveAll(
+                        index = plan.standby,
+                        domains = rows,
+                        mapper = mapper
+                    )
+
+                    after = source.entityId(rows.last())
+                }
+
+                lifecycle.refresh(plan.standby)
+                lifecycle.putIndexSettings(
+                    plan.standby,
+                    mapOf("index" to mapOf("number_of_replicas" to 1, "refresh_interval" to "1s"))
+                )
+                lifecycle.switchAlias(alias = plan.alias, removeIndex = plan.active, addIndex = plan.standby)
+            } finally {
+                lifecycle.fullIndexFinish()
+            }
         }
     }
 

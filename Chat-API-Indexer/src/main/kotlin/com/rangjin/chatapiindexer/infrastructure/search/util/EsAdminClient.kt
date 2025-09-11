@@ -19,7 +19,7 @@ class EsAdminClient(
 
     private val objectMapper: ObjectMapper,
 
-    private val operations: ElasticsearchOperations
+    private val ops: ElasticsearchOperations
 
 ) {
 
@@ -38,6 +38,17 @@ class EsAdminClient(
         } catch (_: Exception) {
             emptyList()
         }
+
+    fun recreate(
+        index: String,
+        entityClass: Class<*>,
+        settings: Map<String, Any>
+    ) {
+        val io = ops.indexOps(IndexCoordinates.of(index))
+        if (io.exists()) io.delete()
+        io.create(settings, io.createMapping(entityClass))
+        io.refresh()
+    }
 
     fun putIndexSettings(index: String, s: Map<String, Any>) =
         rest.exchange(
@@ -73,7 +84,7 @@ class EsAdminClient(
     }
 
     fun refresh(index: String) {
-        operations.indexOps(IndexCoordinates.of(index)).refresh()
+        ops.indexOps(IndexCoordinates.of(index)).refresh()
     }
 
 }

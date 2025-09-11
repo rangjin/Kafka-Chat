@@ -1,7 +1,7 @@
 package com.rangjin.chatapiindexer.presentation.messaging
 
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.rangjin.chatapiindexer.application.port.`in`.IncrementIndexer
 import com.rangjin.chatapiindexer.domain.Message
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.kafka.annotation.KafkaListener
@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component
 @Component
 class KafkaConsumer(
 
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+
+    private val indexer: IncrementIndexer
 
 ) {
 
@@ -27,16 +29,21 @@ class KafkaConsumer(
         autoCreateTopics = "true"
     )
     fun onEvent(record: ConsumerRecord<String, String>) {
-        val raw = record.value()
+        val node = objectMapper.readTree(record.value())
 
-        if (objectMapper.readTree(raw).get("className")?.asText() != "Message") return
+        val effectiveNode =
+            if (node.isTextual) objectMapper.readTree(node.asText())
+            else node
 
-        val envelope: EventEnvelope<Message> = objectMapper.readValue(
-            raw,
-            object : TypeReference<EventEnvelope<Message>>() {}
-        )
+        val envelope = objectMapper.treeToValue(effectiveNode, EventEnvelope::class.java)
 
-        // todo: 증분색인
+        when (envelope.className) {
+            "Message" -> {
+                val msg = objectMapper.treeToValue(envelope.payload, Message::class.java)
+                indexer.upsert(msg, msg.channelId.toString())
+            }
+            else -> return
+        }
     }
 
 }

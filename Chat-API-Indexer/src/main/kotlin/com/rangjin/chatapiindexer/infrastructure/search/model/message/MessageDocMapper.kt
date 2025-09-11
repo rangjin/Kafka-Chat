@@ -10,9 +10,17 @@ class MessageDocMapper : DocMapper<Message, MessageDoc> {
 
     override val domain: String = "messages"
 
+    override val domainClass: KClass<Message> = Message::class
+
     override val docClass: KClass<MessageDoc> = MessageDoc::class
 
     override fun toDoc(domain: Message): MessageDoc =
         MessageDoc.fromDomain(domain)
+
+    override fun getId(doc: MessageDoc): String =
+        doc.id.toString()
+
+    override fun getRouting(doc: MessageDoc): String =
+        doc.channelId.toString()
 
 }
