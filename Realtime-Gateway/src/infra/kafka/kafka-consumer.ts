@@ -1,12 +1,12 @@
-import { Kafka, logLevel, type EachMessagePayload, type Consumer } from 'kafkajs';
+import { Kafka, logLevel, type Consumer } from 'kafkajs';
 import type { Server } from 'socket.io';
-import type { MessageEvent } from './message-event.js';
-import type { ChannelActivityEvent } from './channel-activity-event.js';
 import {
     emitToChannel,
     forceJoinChannelByUser,
     forceLeaveChannelByUser,
 } from '../../service/subscription.service.js';
+import { parseJsonSafe } from '../../util/json.js';
+import type { EventEnvelope, MembershipPayload, MessagePayload } from './event.js';
 
 export const startKafkaConsumers = async (io: Server) => {
     const kafka = new Kafka({
@@ -15,54 +15,13 @@ export const startKafkaConsumers = async (io: Server) => {
         logLevel: logLevel.INFO,
     });
 
-    await startTopicConsumer(
-        kafka,
-        process.env.TOPIC_MESSAGE!,
-        process.env.GID_MESSAGE!,
-        (io, { message }) => {
-            const evt = parseJsonDeep<MessageEvent>(message.value);
-            if (!evt) return void console.warn('[Kafka][message] invalid JSON, skip');
-            if (!Number.isFinite(Number(evt.channelId))) {
-                return void console.warn('[Kafka][message] invalid channelId, skip', evt);
-            }
-            emitToChannel(io, evt.channelId, 'message', evt);
-        },
-        io,
-    );
-
-    await startTopicConsumer(
-        kafka,
-        process.env.TOPIC_ACTIVITY!,
-        process.env.GID_ACTIVITY!,
-        (io, { message }) => {
-            const evt = parseJsonDeep<ChannelActivityEvent>(message.value);
-            if (!evt) return void console.warn('[Kafka][activity] invalid JSON, skip');
-            if (!Number.isFinite(evt.channelId)) {
-                return void console.warn('[Kafka][activity] invalid channelId, skip', evt);
-            }
-
-            if (evt.type === 'JOIN') {
-                forceJoinChannelByUser(io, evt.userId, evt.channelId);
-                emitToChannel(io, evt.channelId, 'member:join', evt);
-                return;
-            }
-            if (evt.type === 'LEAVE') {
-                forceLeaveChannelByUser(io, evt.userId, evt.channelId);
-                emitToChannel(io, evt.channelId, 'member:leave', evt);
-                return;
-            }
-
-            console.warn('[Kafka][activity] unknown type, skip', evt);
-        },
-        io,
-    );
+    await startEventConsumer(kafka, process.env.TOPIC_EVENT!, process.env.GID_EVENT!, io);
 };
 
-const startTopicConsumer = async (
+const startEventConsumer = async (
     kafka: Kafka,
     topic: string,
     groupId: string,
-    handle: (io: Server, payload: EachMessagePayload) => Promise<void> | void,
     io: Server,
 ): Promise<Consumer> => {
     const consumer = kafka.consumer({ groupId });
@@ -71,9 +30,46 @@ const startTopicConsumer = async (
 
     await consumer.run({
         autoCommit: true,
-        eachMessage: async (payload) => {
+        eachMessage: async ({ message }) => {
             try {
-                await handle(io, payload);
+                const env = parseJsonSafe<EventEnvelope>(message.value!);
+                if (!env || !env.className || !env.type) {
+                    console.warn('[Kafka][event] invalid envelope, skip');
+                    return;
+                }
+
+                switch (env.className) {
+                    case 'Message': {
+                        if (env.type !== 'CREATE') return;
+                        const m = env.payload as MessagePayload;
+
+                        if (!Number.isFinite(Number(m.channelId)))
+                            return console.warn('[Kafka][msg] invalid channelId');
+
+                        emitToChannel(io, m.channelId, 'message', m);
+                        break;
+                    }
+                    case 'Membership': {
+                        const mem = env.payload as MembershipPayload;
+
+                        if (
+                            !Number.isFinite(Number(mem.channelId)) ||
+                            !Number.isFinite(Number(mem.userId))
+                        )
+                            return console.warn('[Kafka][membership] invalid ids');
+
+                        if (env.type === 'CREATE') {
+                            forceJoinChannelByUser(io, mem.userId, mem.channelId);
+                            emitToChannel(io, mem.channelId, 'member:join', mem);
+                        } else if (env.type === 'DELETE') {
+                            forceLeaveChannelByUser(io, mem.userId, mem.channelId);
+                            emitToChannel(io, mem.channelId, 'member:leave', mem);
+                        }
+                        break;
+                    }
+                    default:
+                        return;
+                }
             } catch (err) {
                 console.error(`[Kafka][${topic}] handler error:`, err);
             }
@@ -95,20 +91,4 @@ const startTopicConsumer = async (
     process.on('SIGTERM', shutdown);
 
     return consumer;
-}
-
-const parseJsonDeep = <T = unknown>(input: Buffer | string | null | undefined): T | null => {
-    if (!input) return null;
-    const text = typeof input === 'string' ? input : input.toString('utf8');
-    try {
-        let v: unknown = JSON.parse(text);
-
-        if (typeof v === 'string' && (v.startsWith('{') || v.startsWith('['))) {
-            v = JSON.parse(v);
-        }
-
-        return v as T;
-    } catch {
-        return null;
-    }
-}
+};
