@@ -6,4 +6,6 @@ interface MessageRepository {
 
     fun save(message: Message): Message
 
+    fun findAllByChannelAndSeqAfter(channelId: Long, seq: Long): List<Message>
+
 }

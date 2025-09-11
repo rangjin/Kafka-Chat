@@ -1,5 +1,6 @@
 package com.rangjin.chatapi.presentation.api.message.controller
 
+import com.rangjin.chatapi.application.port.`in`.message.SearchMessageUseCase
 import com.rangjin.chatapi.application.port.`in`.message.SendMessageUseCase
 import com.rangjin.chatapi.presentation.api.message.dto.request.SendMessageRequest
 import com.rangjin.chatapi.presentation.api.message.dto.response.SendMessageResponse
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/channel/{channelId}/messages")
 class MessageController(
 
-    private val sendMessageUseCase: SendMessageUseCase
+    private val sendMessageUseCase: SendMessageUseCase,
+
+    private val searchMessageUseCase: SearchMessageUseCase
 
 ) {
 
@@ -26,5 +29,21 @@ class MessageController(
                 channelId, principal.userId, req.message
             )
         )
+
+    @GetMapping("afterSeq/{seq}")
+    fun getMessageAfterSeq(
+        @AuthenticationPrincipal principal: AuthPrincipal,
+        @PathVariable channelId: Long,
+        @PathVariable seq: Long
+    ) =
+        searchMessageUseCase.searchAfterSeq(principal.userId, channelId, seq)
+
+    @GetMapping("")
+    fun getMessageByKeyword(
+        @AuthenticationPrincipal principal: AuthPrincipal,
+        @PathVariable channelId: Long,
+        @RequestParam keyword: String
+    ) =
+        searchMessageUseCase.searchByChannelIdAndContent(principal.userId, channelId, keyword)
 
 }

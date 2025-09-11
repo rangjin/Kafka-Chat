@@ -36,4 +36,15 @@ class MessageRepositoryAdapter(
             )
         )
 
+    override fun findAllByChannelAndSeqAfter(
+        channelId: Long,
+        seq: Long
+    ): List<Message> =
+        messageJpaRepository.findAllByChannelAndSeqAfter(
+            channelRef(channelId),
+            seq
+        ).map {
+            MessageMapper.toDomain(it)
+        }
+
 }

@@ -1,12 +1,13 @@
-package com.rangjin.chatapiindexer.infrastructure.search.model.message
+package com.rangjin.chatapi.infrastructure.search.message
 
-import com.rangjin.chatapiindexer.domain.Message
+import com.rangjin.chatapi.domain.message.Message
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.DateFormat
 import org.springframework.data.elasticsearch.annotations.Document
 import org.springframework.data.elasticsearch.annotations.Field
 import org.springframework.data.elasticsearch.annotations.FieldType
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Document(indexName = "messages")
 data class MessageDoc(
@@ -49,19 +50,17 @@ data class MessageDoc(
 
 ) {
 
-    companion object {
-        fun fromDomain(domain: Message) =
-            MessageDoc(
-                domain.id,
-                domain.seq,
-                domain.messageId,
-                domain.channelId,
-                domain.senderId,
-                domain.content,
-                domain.sentAt,
-                domain.createdAt,
-                domain.updatedAt
-            )
-    }
+    fun toDomain(): Message =
+        Message(
+            id = id,
+            seq = seq,
+            messageId = UUID.fromString(messageId),
+            channelId = channelId,
+            senderId = senderId,
+            content = content,
+            sentAt = sentAt,
+            createdAt = createdAt,
+            updatedAt = updatedAt
+        )
 
 }
