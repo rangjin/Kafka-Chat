@@ -14,13 +14,12 @@ interface IndexLifecyclePort {
 
     fun <D : Any> recreateIndex(
         index: String,
-        mapper: DocMapper<*, D>,
-        settings: Map<String, Any>
+        mapper: DocMapper<*, D>
     )
 
     fun refresh(index: String)
 
-    fun putIndexSettings(index: String, settings: Map<String, Any>)
+    fun putIndexSettings(index: String)
 
     fun switchAlias(alias: String, removeIndex: String?, addIndex: String)
 

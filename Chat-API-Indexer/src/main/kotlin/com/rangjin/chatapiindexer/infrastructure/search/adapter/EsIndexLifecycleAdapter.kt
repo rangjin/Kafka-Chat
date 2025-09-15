@@ -43,16 +43,15 @@ class EsIndexLifecycleAdapter(
 
     override fun <D : Any> recreateIndex(
         index: String,
-        mapper: DocMapper<*, D>,
-        settings: Map<String, Any>
+        mapper: DocMapper<*, D>
     ) =
-        es.recreate(index, mapper.docClass.java, settings)
+        es.recreate(index, mapper.docClass.java)
 
     override fun refresh(index: String) =
         es.refresh(index)
 
-    override fun putIndexSettings(index: String, settings: Map<String, Any>) {
-        es.putIndexSettings(index, settings)
+    override fun putIndexSettings(index: String) {
+        es.putIndexSettings(index)
     }
 
     override fun switchAlias(alias: String, removeIndex: String?, addIndex: String) =

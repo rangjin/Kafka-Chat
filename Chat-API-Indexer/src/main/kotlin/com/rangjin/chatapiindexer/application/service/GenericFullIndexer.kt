@@ -40,8 +40,7 @@ class GenericFullIndexer(
 
                 lifecycle.recreateIndex(
                     index = plan.standby,
-                    mapper = mapper,
-                    settings = mapOf("index" to mapOf("number_of_replicas" to 0, "refresh_interval" to "-1"))
+                    mapper = mapper
                 )
 
                 var after = 0L
@@ -60,10 +59,7 @@ class GenericFullIndexer(
                 }
 
                 lifecycle.refresh(plan.standby)
-                lifecycle.putIndexSettings(
-                    plan.standby,
-                    mapOf("index" to mapOf("number_of_replicas" to 1, "refresh_interval" to "1s"))
-                )
+                lifecycle.putIndexSettings(plan.standby)
                 lifecycle.switchAlias(alias = plan.alias, removeIndex = plan.active, addIndex = plan.standby)
             } finally {
                 lifecycle.fullIndexFinish()

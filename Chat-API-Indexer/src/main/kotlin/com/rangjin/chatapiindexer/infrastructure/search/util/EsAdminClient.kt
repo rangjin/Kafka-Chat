@@ -42,19 +42,51 @@ class EsAdminClient(
     fun recreate(
         index: String,
         entityClass: Class<*>,
-        settings: Map<String, Any>
     ) {
         val io = ops.indexOps(IndexCoordinates.of(index))
         if (io.exists()) io.delete()
+
+        val settings = mapOf(
+            "index" to mapOf(
+                "number_of_replicas" to 0,
+                "refresh_interval" to "-1"
+            ),
+            "analysis" to mapOf(
+                "analyzer" to mapOf(
+                    // 한국어 형태소 분석기
+                    "nori" to mapOf("type" to "nori"),
+
+                    // ngram 분석기 (부분 문자열 검색)
+                    "korean_ngram" to mapOf(
+                        "type" to "custom",
+                        "tokenizer" to "ngram_tokenizer"
+                    )
+                ),
+                "tokenizer" to mapOf(
+                    "ngram_tokenizer" to mapOf(
+                        "type" to "ngram",
+                        "min_gram" to 2,
+                        "max_gram" to 3,
+                        "token_chars" to listOf("letter", "digit")
+                    )
+                )
+            )
+        )
+
         io.create(settings, io.createMapping(entityClass))
         io.refresh()
     }
 
-    fun putIndexSettings(index: String, s: Map<String, Any>) =
+    fun putIndexSettings(index: String) =
         rest.exchange(
             "$esUri/$index/_settings",
             HttpMethod.PUT,
-            HttpEntity(s),
+            HttpEntity(mapOf(
+                "index" to mapOf(
+                    "number_of_replicas" to 1,
+                    "refresh_interval" to "1s"
+                )
+            )),
             String::class.java
         )
 
