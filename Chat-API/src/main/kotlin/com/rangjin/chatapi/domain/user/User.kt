@@ -14,6 +14,6 @@ data class User(
 
     val createdAt: LocalDateTime? = null,
 
-    val updatedAt: LocalDateTime? = null,
+    val updatedAt: LocalDateTime? = null
 
-    )
+)
