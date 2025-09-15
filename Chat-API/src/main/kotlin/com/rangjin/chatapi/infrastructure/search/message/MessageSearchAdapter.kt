@@ -1,5 +1,6 @@
 package com.rangjin.chatapi.infrastructure.search.message
 
+import co.elastic.clients.elasticsearch._types.SortOrder
 import com.rangjin.chatapi.application.port.out.message.MessageSearch
 import com.rangjin.chatapi.domain.message.Message
 import org.springframework.data.elasticsearch.client.elc.NativeQuery
@@ -20,7 +21,9 @@ class MessageSearchAdapter(
                     b.must { it.term { t -> t.field("channelId").value(channelId) } }
                     b.must { it.match { m -> m.field("content").query(keyword) } }
                 }
-            }.build()
+            }
+            .withSort { s -> s.field { f -> f.field("seq").order(SortOrder.Desc) } }
+            .build()
 
         return ops.search(query, MessageDoc::class.java)
             .map { it.content.toDomain() }.toList()
