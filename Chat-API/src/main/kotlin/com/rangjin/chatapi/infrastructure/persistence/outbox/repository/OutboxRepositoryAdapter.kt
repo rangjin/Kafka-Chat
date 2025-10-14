@@ -2,7 +2,7 @@ package com.rangjin.chatapi.infrastructure.persistence.outbox.repository
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rangjin.chatapi.application.event.DomainEvent
-import com.rangjin.chatapi.application.port.out.message.MessagePublisher
+import com.rangjin.chatapi.application.message.port.out.MessagePublisher
 import com.rangjin.chatapi.infrastructure.persistence.outbox.entity.OutboxJpaEntity
 import org.springframework.stereotype.Component
 

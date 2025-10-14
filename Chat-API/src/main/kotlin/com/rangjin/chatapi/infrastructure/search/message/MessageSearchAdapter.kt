@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.infrastructure.search.message
 
 import co.elastic.clients.elasticsearch._types.SortOrder
-import com.rangjin.chatapi.application.port.out.message.MessageSearch
+import com.rangjin.chatapi.application.message.port.out.MessageSearch
 import com.rangjin.chatapi.domain.message.Message
 import org.springframework.data.elasticsearch.client.elc.NativeQuery
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations

@@ -1,13 +1,13 @@
 package com.rangjin.chatapi.presentation.api.channel.controller
 
-import com.rangjin.chatapi.application.port.`in`.channel.CreateChannelUseCase
-import com.rangjin.chatapi.application.port.`in`.channel.InvitationUseCase
-import com.rangjin.chatapi.application.port.`in`.channel.WithdrawUseCase
+import com.rangjin.chatapi.application.channel.port.`in`.CreateChannelUseCase
+import com.rangjin.chatapi.application.membership.port.`in`.InvitationUseCase
+import com.rangjin.chatapi.application.membership.port.`in`.WithdrawUseCase
 import com.rangjin.chatapi.presentation.api.channel.dto.request.CreateChannelRequest
 import com.rangjin.chatapi.presentation.api.channel.dto.request.InvitationRequest
 import com.rangjin.chatapi.presentation.api.channel.dto.response.ChannelDetailResponse
 import com.rangjin.chatapi.presentation.api.channel.dto.response.InvitationResponse
-import com.rangjin.chatapi.presentation.auth.AuthPrincipal
+import com.rangjin.chatapi.application.user.dto.AuthPrincipal
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 

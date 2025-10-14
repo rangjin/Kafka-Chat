@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.user.repository
 
-import com.rangjin.chatapi.application.port.out.user.UserRepository
+import com.rangjin.chatapi.application.user.port.out.UserRepository
 import com.rangjin.chatapi.domain.user.User
 import com.rangjin.chatapi.infrastructure.persistence.user.mapper.UserMapper
 import org.springframework.data.repository.findByIdOrNull

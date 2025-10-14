@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.message.repository
 
-import com.rangjin.chatapi.application.port.out.message.MessageRepository
+import com.rangjin.chatapi.application.message.port.out.MessageRepository
 import com.rangjin.chatapi.domain.message.Message
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.message.mapper.MessageMapper

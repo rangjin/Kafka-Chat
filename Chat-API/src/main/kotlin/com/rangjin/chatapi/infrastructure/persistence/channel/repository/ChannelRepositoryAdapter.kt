@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.channel.repository
 
-import com.rangjin.chatapi.application.port.out.channel.ChannelRepository
+import com.rangjin.chatapi.application.channel.port.out.ChannelRepository
 import com.rangjin.chatapi.domain.channel.Channel
 import com.rangjin.chatapi.infrastructure.persistence.channel.mapper.ChannelMapper
 import org.springframework.data.repository.findByIdOrNull

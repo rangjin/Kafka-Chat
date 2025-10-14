@@ -1,6 +1,6 @@
 package com.rangjin.chatapi.infrastructure.persistence.membership.repository
 
-import com.rangjin.chatapi.application.port.out.membership.MembershipRepository
+import com.rangjin.chatapi.application.membership.port.out.MembershipRepository
 import com.rangjin.chatapi.domain.membership.Membership
 import com.rangjin.chatapi.infrastructure.persistence.channel.entity.ChannelJpaEntity
 import com.rangjin.chatapi.infrastructure.persistence.membership.mapper.MembershipMapper

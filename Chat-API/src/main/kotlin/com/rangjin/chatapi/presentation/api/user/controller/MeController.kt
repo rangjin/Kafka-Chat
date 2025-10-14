@@ -1,8 +1,8 @@
 package com.rangjin.chatapi.presentation.api.user.controller
 
-import com.rangjin.chatapi.application.port.`in`.channel.ReadMyChannelsUseCase
+import com.rangjin.chatapi.application.channel.port.`in`.ReadMyChannelsUseCase
 import com.rangjin.chatapi.presentation.api.channel.dto.response.MyChannelIdsResponse
-import com.rangjin.chatapi.presentation.auth.AuthPrincipal
+import com.rangjin.chatapi.application.user.dto.AuthPrincipal
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

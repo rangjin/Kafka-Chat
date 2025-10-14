@@ -1,7 +1,7 @@
 package com.rangjin.chatapi.presentation.api.user.controller
 
-import com.rangjin.chatapi.application.port.`in`.user.SignInUseCase
-import com.rangjin.chatapi.application.port.`in`.user.SignUpUseCase
+import com.rangjin.chatapi.application.user.port.`in`.SignInUseCase
+import com.rangjin.chatapi.application.user.port.`in`.SignUpUseCase
 import com.rangjin.chatapi.presentation.api.user.dto.request.SignInRequest
 import com.rangjin.chatapi.presentation.api.user.dto.request.SignUpRequest
 import com.rangjin.chatapi.presentation.api.user.dto.response.TokenResponse
