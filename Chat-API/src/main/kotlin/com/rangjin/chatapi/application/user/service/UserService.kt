@@ -49,7 +49,7 @@ class UserService(
         } else throw CustomException(ErrorCode.WRONG_PASSWORD)
     }
 
-    override fun getPrincipal(token: String): AuthPrincipal? =
+    override fun getPrincipal(token: String?): AuthPrincipal? =
         tokenProvider.authenticateFromHeader(token)
 
 }
