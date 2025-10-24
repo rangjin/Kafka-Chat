@@ -3,8 +3,6 @@ import { createApp } from './presentation/http/app.js';
 import { createSocketServer, SocketAdapter } from './infrastructure/socket/socket.adapter.js';
 import type { UserRepository } from './application/port/outbound/user.repository.js';
 import { UserRepositoryAdapter } from './infrastructure/http/user-repository.adapter.js';
-import type { EventConsumer } from './application/port/outbound/event.consumer.js';
-import { KafkaConsumerAdapter } from './infrastructure/kafka/kafka-consumer.adapter.js';
 import { SocketService } from './application/service/socket.service.js';
 import type { SubscriptionRegistry } from './application/port/outbound/subscription.registry.js';
 import type { RealtimeGateway } from './application/port/outbound/realtime.gateway.js';
@@ -15,7 +13,7 @@ import type { OnMessagingUsecase } from './application/port/inbound/on-messaging
 import type { OnSocketUseCase } from './application/port/inbound/on-socket.usecase.js';
 import type { OnTypingUsecase } from './application/port/inbound/on-typing.usecase.js';
 import { SocketController } from './presentation/socket/socket.controller.js';
-import { EventController } from './presentation/messaging/event.controller.js';
+import { KafkaConsumer } from './presentation/messaging/kafka.consumer.js';
 
 dotenv.config();
 
@@ -25,7 +23,6 @@ async function bootstrap() {
 
     // outbound
     const userRepository: UserRepository = new UserRepositoryAdapter();
-    const eventConsumer: EventConsumer = new KafkaConsumerAdapter();
     const socketAdapter: SocketAdapter = new SocketAdapter(io);
     const realtimeGateway: RealtimeGateway = socketAdapter;
     const SubscriptionRegistry: SubscriptionRegistry = socketAdapter;
@@ -47,12 +44,8 @@ async function bootstrap() {
     );
     socketController.registerMiddleWare();
     socketController.registerHandlers();
-    const eventController: EventController = new EventController(
-        eventConsumer,
-        onMessagingUseCase,
-        onMembershipUseCase,
-    );
-    await eventController.start();
+    const kafkaConsumer: KafkaConsumer = new KafkaConsumer(onMessagingUseCase,onMembershipUseCase,);
+    await kafkaConsumer.startConsume();
 
     const port = process.env.PORT ?? '3000';
     server.listen(port, () => {
