@@ -1,4 +1,4 @@
-import type { ChannelId, UserId } from "./types.js";
+import type { ChannelId, UserId } from './types.js';
 
 export class User {
     constructor(

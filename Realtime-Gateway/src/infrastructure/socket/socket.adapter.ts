@@ -1,28 +1,26 @@
 import http from 'http';
 import type { Express } from 'express';
-import { Server } from "socket.io";
-import type { RealtimeGateway } from "../../application/port/outbound/realtime.gateway.js";
-import type { SubscriptionRegistry } from "../../application/port/outbound/subscription.registry.js";
-import type { UserId } from "../../domain/types.js";
+import { Server } from 'socket.io';
+import type { RealtimeGateway } from '../../application/port/outbound/realtime.gateway.js';
+import type { SubscriptionRegistry } from '../../application/port/outbound/subscription.registry.js';
+import type { UserId } from '../../domain/types.js';
 
 export const createSocketServer = (app: Express) => {
     const server = http.createServer(app);
     const io = new Server(server, {
-        path: '/realtime', 
+        path: '/realtime',
         cors: {
-            origin: '*', 
-            methods: ['GET', 'POST']
-        }
+            origin: '*',
+            methods: ['GET', 'POST'],
+        },
     });
     return { server, io };
-}
+};
 
 export class SocketAdapter implements SubscriptionRegistry, RealtimeGateway {
-    constructor(
-        private readonly io: Server
-    ) {}
+    constructor(private readonly io: Server) {}
 
-    private readonly map = new Map<UserId, Set<string>>;
+    private readonly map = new Map<UserId, Set<string>>();
 
     register(userId: UserId, socketId: string): void {
         const set = this.map.get(userId) ?? new Set<string>();
@@ -54,5 +52,4 @@ export class SocketAdapter implements SubscriptionRegistry, RealtimeGateway {
         if (!room || socketIds.length === 0) return;
         this.io.in(socketIds).socketsLeave(room);
     }
-
 }

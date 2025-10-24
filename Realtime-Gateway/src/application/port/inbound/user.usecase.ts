@@ -1,5 +1,5 @@
-import type { User } from "../../../domain/user.js";
+import type { User } from '../../../domain/user.js';
 
 export interface UserUsecase {
-    getUser(authorization: String): Promise<User>;
+    getUser(authorization: string): Promise<User>;
 }

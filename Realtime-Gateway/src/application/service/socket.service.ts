@@ -1,17 +1,19 @@
-import type { MembershipPayload, MessagePayload } from "../../presentation/messaging/kafka-events.js";
-import { roomOf } from "../../domain/room.js";
-import type { UserId, ChannelId } from "../../domain/types.js";
-import type { OnMembershipUseCase } from "../port/inbound/on-membership.usecase.js";
-import type { OnMessagingUsecase } from "../port/inbound/on-messaging.usecase.js";
-import type { OnSocketUseCase } from "../port/inbound/on-socket.usecase.js";
-import type { OnTypingUsecase } from "../port/inbound/on-typing.usecase.js";
-import type { RealtimeGateway } from "../port/outbound/realtime.gateway.js";
-import type { SubscriptionRegistry } from "../port/outbound/subscription.registry.js";
+import type { MembershipPayload, MessagePayload } from '../../domain/events.js';
+import { roomOf } from '../../domain/room.js';
+import type { UserId, ChannelId } from '../../domain/types.js';
+import type { OnMembershipUseCase } from '../port/inbound/on-membership.usecase.js';
+import type { OnMessagingUsecase } from '../port/inbound/on-messaging.usecase.js';
+import type { OnSocketUseCase } from '../port/inbound/on-socket.usecase.js';
+import type { OnTypingUsecase } from '../port/inbound/on-typing.usecase.js';
+import type { RealtimeGateway } from '../port/outbound/realtime.gateway.js';
+import type { SubscriptionRegistry } from '../port/outbound/subscription.registry.js';
 
-export class SocketService implements OnSocketUseCase, OnMessagingUsecase, OnMembershipUseCase, OnTypingUsecase {
-    constructor (
-        private readonly realtimeGateway: RealtimeGateway, 
-        private readonly subscriptionRegistry: SubscriptionRegistry
+export class SocketService
+    implements OnSocketUseCase, OnMessagingUsecase, OnMembershipUseCase, OnTypingUsecase
+{
+    constructor(
+        private readonly realtimeGateway: RealtimeGateway,
+        private readonly subscriptionRegistry: SubscriptionRegistry,
     ) {}
 
     registerSocket(userId: UserId, socketId: string): void {
@@ -53,5 +55,4 @@ export class SocketService implements OnSocketUseCase, OnMessagingUsecase, OnMem
     onStopTyping(channelId: ChannelId, userId: UserId): Promise<void> | void {
         this.realtimeGateway.emitToRoom(roomOf(channelId), 'stop-typing', userId);
     }
-
-} 
+}

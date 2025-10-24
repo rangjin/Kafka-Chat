@@ -39,10 +39,19 @@ async function bootstrap() {
     const onTypingUsecase: OnTypingUsecase = socketService;
 
     // controller
-    const socketController: SocketController = new SocketController(io, userUseCase, onSocketUseCase, onTypingUsecase);
+    const socketController: SocketController = new SocketController(
+        io,
+        userUseCase,
+        onSocketUseCase,
+        onTypingUsecase,
+    );
     socketController.registerMiddleWare();
     socketController.registerHandlers();
-    const eventController: EventController = new EventController(eventConsumer, onMessagingUseCase, onMembershipUseCase);
+    const eventController: EventController = new EventController(
+        eventConsumer,
+        onMessagingUseCase,
+        onMembershipUseCase,
+    );
     await eventController.start();
 
     const port = process.env.PORT ?? '3000';

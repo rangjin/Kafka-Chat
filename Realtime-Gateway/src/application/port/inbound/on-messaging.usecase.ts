@@ -1,4 +1,4 @@
-import type { MessagePayload } from "../../../presentation/messaging/kafka-events.js";
+import type { MessagePayload } from '../../../domain/events.js';
 
 export interface OnMessagingUsecase {
     onMessaging(message: MessagePayload): Promise<void> | void;

@@ -1,4 +1,4 @@
-import type { UserId } from "../../../domain/types.js";
+import type { UserId } from '../../../domain/types.js';
 
 export interface SubscriptionRegistry {
     register(userId: UserId, socketId: string): void;

@@ -1,4 +1,4 @@
-import type { ChannelId, UserId } from "../../../domain/types.js";
+import type { ChannelId, UserId } from '../../../domain/types.js';
 
 export interface OnSocketUseCase {
     registerSocket(userId: UserId, socketId: string): void;
