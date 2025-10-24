@@ -6,6 +6,7 @@ import { authorizeAndLoadChannels } from './service/auth.service.js';
 import {
     joinInitialChannels,
     registerUserSocket,
+    roomOf,
     unregisterUserSocket,
 } from './service/subscription.service.js';
 import { startKafkaConsumers } from './infra/kafka/kafka-consumer.js';
@@ -52,6 +53,14 @@ io.on('connection', (socket) => {
         if (Number.isFinite(userId)) {
             unregisterUserSocket(userId as number, socket.id);
         }
+    });
+
+    socket.on('typing', (channelId: number) => {
+        socket.to(roomOf(channelId)).emit('typing', userId);
+    });
+
+    socket.on('stop-typing', (channelId: number) => {
+        socket.to(roomOf(channelId)).emit('stop-typing', userId);
     });
 });
 
