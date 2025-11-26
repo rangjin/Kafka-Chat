@@ -1,0 +1,47 @@
+{
+  "name": "mysql-outbox",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+
+    "topic.prefix": "app",
+    "database.server.id": "5401",
+
+    "database.hostname": "host.docker.internal",
+    "database.port": "3306",
+    "database.user": "root",
+    "database.password": "",
+    "database.connectionTimeZone": "Asia/Seoul",
+
+    "database.include.list": "kafka_chat",
+    "table.include.list": "kafka_chat.outbox",
+
+    "include.schema.changes": "false",
+    "tombstones.on.delete": "false",
+    "snapshot.mode": "schema_only",
+
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:29092",
+    "schema.history.internal.kafka.topic": "schema-changelog",
+
+    "topic.creation.enable": "true",
+
+    "topic.creation.default.partitions": "1",
+    "topic.creation.default.replication.factor": "1",
+
+    "topic.creation.schema-changelog.partitions": "1",
+    "topic.creation.schema-changelog.replication.factor": "1",
+    "topic.creation.schema-changelog.cleanup.policy": "compact",
+
+    "transforms": "outbox",
+    "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.route.by.field": "aggregate_type",
+    "transforms.outbox.route.topic.replacement": "chat.${routedByValue}",
+    "transforms.outbox.id.fields": "aggregate_id:id",
+    "transforms.outbox.table.field.event.key": "aggregate_id",
+    "transforms.outbox.table.fields.additional.placement": "timestamp:header:ts,type:header:event_type,aggregate_type:header:topic_category",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
+  }
+}
